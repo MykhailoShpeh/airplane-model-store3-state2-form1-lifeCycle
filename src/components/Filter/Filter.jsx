@@ -57,8 +57,12 @@ export function Filter({ onAll, onPlanes, onBiplanes, onHelicopters, onCart, act
                 onClick={onCart}
             >
                 Кошик
-               &nbsp;
-                <span className={css.cartSpan}>{null ? 0 : selectedLength}</span>
+                &nbsp;
+                <span className={
+                    selectedLength
+                        ? `${css.cartSpan} ${css.redBack}`
+                        : css.cartSpan
+                }>{null ? 0 : selectedLength}</span>
             </button>
 
         </div>
