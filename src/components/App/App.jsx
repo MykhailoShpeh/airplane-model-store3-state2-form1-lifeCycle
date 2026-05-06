@@ -6,7 +6,8 @@ import planes from '@/json/planes.json';
 import helicopters from '@/json/helicopters.json';
 import aircrafts from '@/json/aircrafts.json';
 import { PlanesList } from '@/components/PlanesList/PlanesList.jsx';
-import { Filter } from '@/components/Filter/Filter.jsx'
+import { Filter } from '@/components/Filter/Filter.jsx';
+import {updateSelectedModels} from '@/utils/updatesSelectedModels';
 
 // export function App() {
 export class App extends Component {
@@ -146,33 +147,33 @@ export class App extends Component {
     // this.updateSelectedModels()
   }
 
-  //! Формуємо(оновлюємо) масив обраних моделей [selectedModels]
+  //! Формуємо(оновлюємо) масив обраних моделей [selectedModels], імпортуємо
   
-  updateSelectedModels = () => {
-    console.log("Функція updateSelectedModels")
-    //todo var.1
-    // this.state.isCartButton
-    //   ? this.setState(
-    // prevState =>
-    // ({
-    //   aircraftArray: prevState.indicesSelectedModels.flatMap((item) => aircrafts.filter((el) => item === el.id))
-    //     }))
-    //   : this.setState(
-    //     prevState =>
-    //     ({
-    //       selectedModels: prevState.indicesSelectedModels.flatMap((item) => aircrafts.filter((el) => item === el.id))
-    //     }))
+  // updateSelectedModels = () => {
+  //   console.log("Функція updateSelectedModels")
+  //   //todo var.1
+  //   // this.state.isCartButton
+  //   //   ? this.setState(
+  //   // prevState =>
+  //   // ({
+  //   //   aircraftArray: prevState.indicesSelectedModels.flatMap((item) => aircrafts.filter((el) => item === el.id))
+  //   //     }))
+  //   //   : this.setState(
+  //   //     prevState =>
+  //   //     ({
+  //   //       selectedModels: prevState.indicesSelectedModels.flatMap((item) => aircrafts.filter((el) => item === el.id))
+  //   //     }))
 
-    //todo var.2
-    // this.setState(
-    //     prevState =>
-    //     ({
-    //       selectedModels: prevState.indicesSelectedModels.flatMap((item) => aircrafts.filter((el) => item === el.id))
-    //   }))
+  //   //todo var.2
+  //   // this.setState(
+  //   //     prevState =>
+  //   //     ({
+  //   //       selectedModels: prevState.indicesSelectedModels.flatMap((item) => aircrafts.filter((el) => item === el.id))
+  //   //   }))
     
-    //todo var.3
-    return this.state.indicesSelectedModels.flatMap((item) => aircrafts.filter((el) => item === el.id))
-  } 
+  //   //todo var.3
+  //   return this.state.indicesSelectedModels.flatMap((item) => aircrafts.filter((el) => item === el.id))
+  // } 
    
 
     //!Фільтрація var.2 
@@ -206,7 +207,7 @@ export class App extends Component {
       
     //! Формуємо(оновлюємо) масив обраних моделей [selectedModels]
     // const selectedModels = indicesSelectedModels.flatMap((item) => aircrafts.filter((el) => item === el.id))
-    const selectedModels = this.updateSelectedModels();
+    const selectedModels = updateSelectedModels(indicesSelectedModels, aircrafts);
 
 
     // console.log("activeButtonIndex: ", activeButtonIndex);
