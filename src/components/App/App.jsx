@@ -7,7 +7,7 @@ import helicopters from '@/json/helicopters.json';
 import aircrafts from '@/json/aircrafts.json';
 import { PlanesList } from '@/components/PlanesList/PlanesList.jsx';
 import { Filter } from '@/components/Filter/Filter.jsx';
-import {updateSelectedModels} from '@/utils/updatesSelectedModels';
+import {updateSelectedModels} from '@/utils/';
 
 // export function App() {
 export class App extends Component {
