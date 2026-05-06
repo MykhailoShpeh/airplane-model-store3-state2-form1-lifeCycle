@@ -24,11 +24,29 @@ export class App extends Component {
     //! Візуалізація активної кнопки 
     activeButton: "allButton",
     // activeButtonIndex: null,
-    indicesSelectedModels: [], //! масив індексів обраних моделей
+    indicesSelectedModels: JSON.parse(localStorage.getItem("selectedModelsId")) || [], //! масив індексів обраних моделей
     // selectedModels: [], //! масив обраних моделей
     isCartButton: false, //! тригер: "якщо активна кнопка «Кошик»"
 
   }
+
+  //! 2.localStorage - Створення запису в localStorage під час першого запуску якщо його немає
+  componentDidMount() {
+    const saved = localStorage.getItem("selectedModelsId");
+    if (!saved) {
+      localStorage.setItem("selectedModelsId", JSON.stringify([]));
+    }
+  };
+
+  //! 3.localStorage - Оновлення(синхронізація) localStorage при кожній зміні indicesSelectedModels
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.indicesSelectedModels !== this.state.indicesSelectedModels) {
+      localStorage.setItem(
+        "selectedModelsId",
+        JSON.stringify(this.state.indicesSelectedModels)
+      );
+    }
+  };
 
   
   allFiltration = () => {
