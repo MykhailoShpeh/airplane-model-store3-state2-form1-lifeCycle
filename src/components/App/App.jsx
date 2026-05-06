@@ -226,11 +226,12 @@ export class App extends Component {
     //! Формуємо(оновлюємо) масив обраних моделей [selectedModels]
     // const selectedModels = indicesSelectedModels.flatMap((item) => aircrafts.filter((el) => item === el.id))
     const selectedModels = updateSelectedModels(indicesSelectedModels, aircrafts);
-
+    const totalTypes =  isCartButton ? selectedModels.length : aircraftArray.length;
 
     // console.log("activeButtonIndex: ", activeButtonIndex);
     console.log("indicesSelectedModels: ", indicesSelectedModels);
     console.log('selectedModels: ', selectedModels);
+    console.log("Кількість типів ЛА:", totalTypes);
 
       return (
         <>
@@ -289,6 +290,7 @@ export class App extends Component {
             // isOn={this.state.isAll}
             title={aircraftTitle}
             bgColor={bgColor}
+            totalTypes={totalTypes}
           >
             <PlanesList
               //todo var.1

@@ -19,3 +19,15 @@
     text-align: center;
     color: darkred;
 }
+
+.titleTotalTypes {
+    color: rgb(174, 174, 174);
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.titleTotaModals {
+color: rgb(174, 174, 174);
+text-align: center;
+margin-bottom: 30px;
+}
