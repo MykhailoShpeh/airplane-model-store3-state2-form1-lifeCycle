@@ -126,7 +126,7 @@ export class App extends Component {
       // isHelicopters: true,
       bgColor: 'lightblue',
       aircraftTitle: title,
-      aircraftArray: this.state.selectedModels,
+      // aircraftArray: this.state.selectedModels,
       activeButton: "cartButton",
       isCartButton: true, //! тригер: "якщо активна кнопка «Кошик»"
     });
@@ -227,19 +227,25 @@ export class App extends Component {
     const selectedModels = updateSelectedModels(indicesSelectedModels, aircrafts);
     const totalTypes = isCartButton ? selectedModels.length : aircraftArray.length;
 
-    //! Рахуємо загальну кількість моделей <totalModels> виходячи з наявності фактичної ціни
+    console.log("aircraftArray: ", aircraftArray);
 
-    const totalModelsArray = aircraftArray
-      .flatMap(item => Object.values(item.model.colorsPrice)
+    //! Рахуємо загальну кількість моделей <totalModels> виходячи з наявності фактичної ціни
+    const totalModelsArray = isCartButton
+      ? selectedModels
+        .flatMap(item => Object.values(item.model.colorsPrice)
+        .filter(value => value > 0))
+      : aircraftArray
+        .flatMap(item => Object.values(item.model.colorsPrice)
         .filter(value => value > 0));
-    
+
     const totalModels = totalModelsArray.length
 
     // console.log("activeButtonIndex: ", activeButtonIndex);
     console.log("indicesSelectedModels: ", indicesSelectedModels);
     console.log('selectedModels: ', selectedModels);
     console.log("Кількість типів ЛА:", totalTypes);
-    console.log("загальну кількість моделей <totalModels>", totalModels)
+    console.log("загальну кількість моделей <totalModels>", totalModels);
+
 
     return (
       <>
