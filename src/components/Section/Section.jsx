@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import css from "./Section.module.css"; //! CSS-модулі
 // import css from "@/components/Section/Section.module.css";
 
-export function Section({ isOn = true, title, children, bgColor, totalTypes }) {
+export function Section({ isOn = true, title, children, bgColor, totalTypes, totalModels }) {
     return (
         <>
             {isOn &&
@@ -12,7 +12,7 @@ export function Section({ isOn = true, title, children, bgColor, totalTypes }) {
                 {/* //! CSS-модулі з composes */}
                     {title && <h2 className={css.titleRobotoBold}>{title}</h2>}
                     <h3 className={css.titleTotalTypes}>Кількість типів ЛА: <span>{totalTypes}</span></h3>
-                    <h3 className={css.titleTotaModals}>Загальна кількість моделей: <span>0</span></h3>
+                    <h3 className={css.titleTotaModals}>Загальна кількість моделей: <span>{totalModels}</span></h3>
                 {children}
             </section>}
         </>

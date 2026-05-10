@@ -7,7 +7,7 @@ import helicopters from '@/json/helicopters.json';
 import aircrafts from '@/json/aircrafts.json';
 import { PlanesList } from '@/components/PlanesList/PlanesList.jsx';
 import { Filter } from '@/components/Filter/Filter.jsx';
-import {updateSelectedModels} from '@/utils/';
+import { updateSelectedModels } from '@/utils/';
 
 // export function App() {
 export class App extends Component {
@@ -27,7 +27,6 @@ export class App extends Component {
     indicesSelectedModels: JSON.parse(localStorage.getItem("selectedModelsId")) || [], //! масив індексів обраних моделей
     // selectedModels: [], //! масив обраних моделей
     isCartButton: false, //! тригер: "якщо активна кнопка «Кошик»"
-
   }
 
   //! 2.localStorage - Створення запису в localStorage під час першого запуску якщо його немає
@@ -48,7 +47,7 @@ export class App extends Component {
     }
   };
 
-  
+
   allFiltration = () => {
     console.log("All")
 
@@ -115,24 +114,24 @@ export class App extends Component {
 
   }
 
-    cartFiltration = () => {
-      console.log("Корзина")
+  cartFiltration = () => {
+    console.log("Корзина")
 
     const title = this.state.indicesSelectedModels.length === 0 ? "Додайте товари до кошика" : "Кошик"
 
-      // console.log("cartArray: ", cartArray);
-      this.setState({
-        // isAll: false,
-        // isPlanes: false,
-        // isHelicopters: true,
-        bgColor: 'lightblue',
-        aircraftTitle: title,
-        aircraftArray: this.state.selectedModels,
-        activeButton: "cartButton",
-        isCartButton: true, //! тригер: "якщо активна кнопка «Кошик»"
-      });
-    }
-  
+    // console.log("cartArray: ", cartArray);
+    this.setState({
+      // isAll: false,
+      // isPlanes: false,
+      // isHelicopters: true,
+      bgColor: 'lightblue',
+      aircraftTitle: title,
+      aircraftArray: this.state.selectedModels,
+      activeButton: "cartButton",
+      isCartButton: true, //! тригер: "якщо активна кнопка «Кошик»"
+    });
+  }
+
   getActiveId = (id) => {
     console.log("id: ", id)
     //! треба створити триггер, який аналізує де натиснута кнопка додати до кошику
@@ -166,7 +165,7 @@ export class App extends Component {
   }
 
   //! Формуємо(оновлюємо) масив обраних моделей [selectedModels], імпортуємо
-  
+
   // updateSelectedModels = () => {
   //   console.log("Функція updateSelectedModels")
   //   //todo var.1
@@ -188,27 +187,27 @@ export class App extends Component {
   //   //     ({
   //   //       selectedModels: prevState.indicesSelectedModels.flatMap((item) => aircrafts.filter((el) => item === el.id))
   //   //   }))
-    
+
   //   //todo var.3
   //   return this.state.indicesSelectedModels.flatMap((item) => aircrafts.filter((el) => item === el.id))
-  // } 
-   
+  // }
 
-    //!Фільтрація var.2 
-    // allFiltration = () => {
-    //   console.log("new All")
-    //   return "Магазин моделей літальних апаратів"
-    // };
 
-    // planeFiltration = () => {
-    //   console.log("new Planes")
-    //   return "Магазин моделей літаків"
-    // };
+  //!Фільтрація var.2
+  // allFiltration = () => {
+  //   console.log("new All")
+  //   return "Магазин моделей літальних апаратів"
+  // };
 
-    // helicopterFiltration = () => {
-    //   console.log("new Helicopters")
-    //   return "Магазин моделей вертольотів"
-    // };
+  // planeFiltration = () => {
+  //   console.log("new Planes")
+  //   return "Магазин моделей літаків"
+  // };
+
+  // helicopterFiltration = () => {
+  //   console.log("new Helicopters")
+  //   return "Магазин моделей вертольотів"
+  // };
 
   render() {
 
@@ -222,21 +221,30 @@ export class App extends Component {
       // selectedModels,
       isCartButton
     } = this.state;
-      
+
     //! Формуємо(оновлюємо) масив обраних моделей [selectedModels]
     // const selectedModels = indicesSelectedModels.flatMap((item) => aircrafts.filter((el) => item === el.id))
     const selectedModels = updateSelectedModels(indicesSelectedModels, aircrafts);
-    const totalTypes =  isCartButton ? selectedModels.length : aircraftArray.length;
+    const totalTypes = isCartButton ? selectedModels.length : aircraftArray.length;
+
+    //! Рахуємо загальну кількість моделей <totalModels> виходячи з наявності фактичної ціни
+
+    const totalModelsArray = aircraftArray
+      .flatMap(item => Object.values(item.model.colorsPrice)
+        .filter(value => value > 0));
+    
+    const totalModels = totalModelsArray.length
 
     // console.log("activeButtonIndex: ", activeButtonIndex);
     console.log("indicesSelectedModels: ", indicesSelectedModels);
     console.log('selectedModels: ', selectedModels);
     console.log("Кількість типів ЛА:", totalTypes);
+    console.log("загальну кількість моделей <totalModels>", totalModels)
 
-      return (
-        <>
-          {/*//!  Filter */}
-          {/* <div className={css.filterBox}>
+    return (
+      <>
+        {/*//!  Filter */}
+        {/* <div className={css.filterBox}>
                 <button
                     className={css.buttonAllFiltration}
                     type="button"
@@ -262,17 +270,17 @@ export class App extends Component {
                 </button>
         
                 </div> */}
-          <Filter
-            onAll={this.allFiltration}
-            onPlanes={this.planeFiltration}
-            onBiplanes={this.biplanesFiltration}
-            onHelicopters={this.helicopterFiltration}
-            onCart={this.cartFiltration}
-            //! Візуалізація активної кнопки 
-            activeButton={activeButton}
-            selectedLength={indicesSelectedModels.length}
-          />
-          {/* <Section
+        <Filter
+          onAll={this.allFiltration}
+          onPlanes={this.planeFiltration}
+          onBiplanes={this.biplanesFiltration}
+          onHelicopters={this.helicopterFiltration}
+          onCart={this.cartFiltration}
+          //! Візуалізація активної кнопки 
+          activeButton={activeButton}
+          selectedLength={indicesSelectedModels.length}
+        />
+        {/* <Section
           isOn={this.state.isPlanes}
           title="Магазин моделей літаків"
           bgColor={this.state.bgColor}
@@ -286,27 +294,28 @@ export class App extends Component {
         >
           <PlanesList items={helicopters} />
         </Section > */}
-          <Section
-            // isOn={this.state.isAll}
-            title={aircraftTitle}
-            bgColor={bgColor}
-            totalTypes={totalTypes}
-          >
-            <PlanesList
-              //todo var.1
-              // items={aircraftArray}
-              //todo var.2
-              items={isCartButton ? selectedModels : aircraftArray}
-              onActiveId={this.getActiveId}
-              indicesSelectedModels={indicesSelectedModels}
-            />
-          </Section >
-          {/* <Section
+        <Section
+          // isOn={this.state.isAll}
+          title={aircraftTitle}
+          bgColor={bgColor}
+          totalTypes={totalTypes}
+          totalModels={totalModels}
+        >
+          <PlanesList
+            //todo var.1
+            // items={aircraftArray}
+            //todo var.2
+            items={isCartButton ? selectedModels : aircraftArray}
+            onActiveId={this.getActiveId}
+            indicesSelectedModels={indicesSelectedModels}
+          />
+        </Section >
+        {/* <Section
           // isOn={this.state.isPlanes}>
           title="Магазин моделей літаків"
           <PlanesList items={aircrafts} />
         </Section > */}
-        </>
-      )
-    }
+      </>
+    )
   }
+}
