@@ -2,8 +2,9 @@ import PropTypes from 'prop-types';
 import css from "./Section.module.css"; //! CSS-модулі
 // import css from "@/components/Section/Section.module.css";
 
-export function Section({ isOn = true, title, children, bgColor, totalTypes, totalModels }) {
+export function Section({ isOn = true, title, children, bgColor, totalTypes, totalModels, selectedModels, isCartButton }) {
     return (
+        selectedModels.length == 0 && isCartButton ? <h1 className={css.nullTitle}>Додайте товар до кошику</h1> :
         <>
             {isOn &&
                 <section style={{ backgroundColor: bgColor, }}>

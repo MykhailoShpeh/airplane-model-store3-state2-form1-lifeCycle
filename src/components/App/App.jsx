@@ -117,7 +117,7 @@ export class App extends Component {
   cartFiltration = () => {
     console.log("Корзина")
 
-    const title = this.state.indicesSelectedModels.length === 0 ? "Додайте товари до кошика" : "Кошик"
+    const title = this.state.indicesSelectedModels.length == 0 ? "Додайте товари до кошика" : "Кошик"
 
     // console.log("cartArray: ", cartArray);
     this.setState({
@@ -306,6 +306,8 @@ export class App extends Component {
           bgColor={bgColor}
           totalTypes={totalTypes}
           totalModels={totalModels}
+          selectedModels={selectedModels}
+          isCartButton={isCartButton}
         >
           <PlanesList
             //todo var.1
