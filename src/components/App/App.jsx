@@ -313,7 +313,10 @@ export class App extends Component {
             //todo var.1
             // items={aircraftArray}
             //todo var.2
-            items={isCartButton ? selectedModels : aircraftArray}
+            items={
+              isCartButton
+              ? selectedModels.sort((firstModel, secondModel) => firstModel.name.brief.localeCompare(secondModel.name.brief))
+                : aircraftArray.sort((firstModel, secondModel) => firstModel.name.brief.localeCompare(secondModel.name.brief))}
             onActiveId={this.getActiveId}
             indicesSelectedModels={indicesSelectedModels}
           />
