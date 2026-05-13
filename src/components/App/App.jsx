@@ -12,6 +12,21 @@ import { updateSelectedModels } from '@/utils/';
 aircrafts.sort((firstModel, secondModel) => firstModel.name.brief.localeCompare(secondModel.name.brief));
 //! Приклад початкового сортування за роком створення (за полем info.year)
 // aircrafts.sort((firstModel, secondModel) => firstModel.info.year - secondModel.info.year);
+//! Сортування, в якому моделі, яких немає в наявності знаходяться в кінці списку
+console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++");
+const arrayYes = aircrafts.filter(item => item.model.actualImages);
+
+const arrayNo = aircrafts.filter(item => !item.model.actualImages);
+
+console.log("arrayYes: ", arrayYes);
+console.log("arrayNo: ", arrayNo);
+
+// aircrafts.splice(0, aircrafts.length);
+aircrafts.length = 0;
+
+aircrafts.push(...arrayYes, ...arrayNo)
+
+console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++");
 
 // export function App() {
 export class App extends Component {
