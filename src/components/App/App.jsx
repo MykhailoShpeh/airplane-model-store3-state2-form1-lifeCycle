@@ -8,6 +8,10 @@ import aircrafts from '@/json/aircrafts.json';
 import { PlanesList } from '@/components/PlanesList/PlanesList.jsx';
 import { Filter } from '@/components/Filter/Filter.jsx';
 import { updateSelectedModels } from '@/utils/';
+//! Приклад початкового сортування на ім'я (за полем name.brief)
+aircrafts.sort((firstModel, secondModel) => firstModel.name.brief.localeCompare(secondModel.name.brief));
+//! Приклад початкового сортування за роком створення (за полем info.year)
+// aircrafts.sort((firstModel, secondModel) => firstModel.info.year - secondModel.info.year);
 
 // export function App() {
 export class App extends Component {
@@ -224,7 +228,8 @@ export class App extends Component {
 
     //! Формуємо(оновлюємо) масив обраних моделей [selectedModels]
     // const selectedModels = indicesSelectedModels.flatMap((item) => aircrafts.filter((el) => item === el.id))
-    const selectedModels = updateSelectedModels(indicesSelectedModels, aircrafts);
+    //! Приклад початкового сортування на ім'я (за полем name.brief)
+    const selectedModels = updateSelectedModels(indicesSelectedModels, aircrafts).sort((firstModel, secondModel) => firstModel.name.brief.localeCompare(secondModel.name.brief));
     const totalTypes = isCartButton ? selectedModels.length : aircraftArray.length;
 
     console.log("aircraftArray: ", aircraftArray);
@@ -313,10 +318,13 @@ export class App extends Component {
             //todo var.1
             // items={aircraftArray}
             //todo var.2
-            items={
-              isCartButton
-              ? selectedModels.sort((firstModel, secondModel) => firstModel.name.brief.localeCompare(secondModel.name.brief))
-                : aircraftArray.sort((firstModel, secondModel) => firstModel.name.brief.localeCompare(secondModel.name.brief))}
+            //! Приклад початкового сортування на ім'я (за полем name.brief)
+            // items={
+            //   isCartButton
+            //   ? selectedModels.sort((firstModel, secondModel) => firstModel.name.brief.localeCompare(secondModel.name.brief))
+            //     : aircraftArray.sort((firstModel, secondModel) => firstModel.name.brief.localeCompare(secondModel.name.brief))}
+
+            items={isCartButton ? selectedModels : aircraftArray}
             onActiveId={this.getActiveId}
             indicesSelectedModels={indicesSelectedModels}
           />
