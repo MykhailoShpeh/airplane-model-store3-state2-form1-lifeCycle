@@ -7,6 +7,7 @@ import helicopters from '@/json/helicopters.json';
 import aircrafts from '@/json/aircrafts.json';
 import { PlanesList } from '@/components/PlanesList/PlanesList.jsx';
 import { Filter } from '@/components/Filter/Filter.jsx';
+import { Sorter } from '@/components/Sorter/Sorter.jsx';
 import { updateSelectedModels } from '@/utils/';
 //! Приклад початкового сортування на ім'я (за полем name.brief)
 aircrafts.sort((firstModel, secondModel) => firstModel.name.brief.localeCompare(secondModel.name.brief));
@@ -183,6 +184,23 @@ export class App extends Component {
     // this.updateSelectedModels()
   }
 
+  //! Обробка введених даних для пошуку(фільтрації) карток за ім'ям або іншими параметрами
+
+  //todo var.1 ✅
+  // handleChangeInputSearchValue = ( value ) => {
+  //   console.log("Подія в input search: ");
+  //   console.log("value: ", value);
+  // }
+  //todo
+
+  //todo var.2 ✅
+
+  handleChangeInputSearchValue = (event) => {
+    console.log("Подія в input search: ");
+    console.log("event: ", event)
+    console.log("value: ", event.target.value);
+  }
+
   //! Формуємо(оновлюємо) масив обраних моделей [selectedModels], імпортуємо
 
   // updateSelectedModels = () => {
@@ -247,7 +265,7 @@ export class App extends Component {
     const selectedModels = updateSelectedModels(indicesSelectedModels, aircrafts).sort((firstModel, secondModel) => firstModel.name.brief.localeCompare(secondModel.name.brief));
     const totalTypes = isCartButton ? selectedModels.length : aircraftArray.length;
 
-    console.log("aircraftArray: ", aircraftArray);
+    console.log("aircraftArray: ", aircraftArray);  
 
     //! Рахуємо загальну кількість моделей <totalModels> виходячи з наявності фактичної ціни
     const totalModelsArray = isCartButton
@@ -306,6 +324,11 @@ export class App extends Component {
           activeButton={activeButton}
           selectedLength={indicesSelectedModels.length}
         />
+
+        <Sorter
+          onHandleChangeInputSearchValue={this.handleChangeInputSearchValue}
+        />
+
         {/* <Section
           isOn={this.state.isPlanes}
           title="Магазин моделей літаків"
