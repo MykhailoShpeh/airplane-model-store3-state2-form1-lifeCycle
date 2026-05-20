@@ -47,6 +47,7 @@ export class App extends Component {
     indicesSelectedModels: JSON.parse(localStorage.getItem("selectedModelsId")) || [], //! масив індексів обраних моделей
     // selectedModels: [], //! масив обраних моделей
     isCartButton: false, //! тригер: "якщо активна кнопка «Кошик»"
+    inputSearchValue: "", //! значення inputSearch
   }
 
   //! 2.localStorage - Створення запису в localStorage під час першого запуску якщо його немає
@@ -194,13 +195,24 @@ export class App extends Component {
   //todo
 
   //todo var.2 ✅
-
   handleChangeInputSearchValue = (event) => {
     console.log("Подія в input search: ");
     console.log("event: ", event)
-    console.log("value: ", event.target.value);
-    const searchData = event.target.value;
-    //! потрібно отримати масив з елементом або елементами з aircrafts, назва якого/яких дорінює значенню searchData
+    const inputData = event.target.value;
+    //! потрібно отримати масив з елементом або елементами з aircrafts, назва якого/яких містить символ з inputData на початку властивості name.brief
+    
+    const onlyInputSearchValue = aircrafts.filter(item => item.name.brief.toLowerCase().startsWith(inputData.trim().toLowerCase()));
+    console.log("✅onlyInputSearchValue: ", onlyInputSearchValue);
+    // console.log("value: ", event.target.value);
+    this.setState({
+      inputSearchValue: inputData,
+      aircraftArray: onlyInputSearchValue
+    });
+
+    
+
+   
+
   }
 
   //! Формуємо(оновлюємо) масив обраних моделей [selectedModels], імпортуємо
@@ -258,7 +270,8 @@ export class App extends Component {
       // activeButtonIndex,
       indicesSelectedModels,
       // selectedModels,
-      isCartButton
+      isCartButton,
+      inputSearchValue
     } = this.state;
 
     //! Формуємо(оновлюємо) масив обраних моделей [selectedModels]
@@ -285,6 +298,8 @@ export class App extends Component {
     console.log('selectedModels: ', selectedModels);
     console.log("Кількість типів ЛА:", totalTypes);
     console.log("загальну кількість моделей <totalModels>", totalModels);
+
+    console.log("inputSearchValue: ", inputSearchValue);
 
 
     return (
