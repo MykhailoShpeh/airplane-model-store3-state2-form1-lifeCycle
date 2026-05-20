@@ -48,6 +48,7 @@ export class App extends Component {
     // selectedModels: [], //! масив обраних моделей
     isCartButton: false, //! тригер: "якщо активна кнопка «Кошик»"
     inputSearchValue: "", //! значення inputSearch
+    aircraftsArrAfterFiltration: aircrafts,  //! дубльоване значення aircraftsArr після фільтрації
   }
 
   //! 2.localStorage - Створення запису в localStorage під час першого запуску якщо його немає
@@ -81,6 +82,7 @@ export class App extends Component {
       aircraftArray: aircrafts,
       activeButton: "allButton",
       isCartButton: false, //! тригер: "якщо активна кнопка «Кошик»"
+      aircraftsArrAfterFiltration: aircrafts
     });
     console.log("aircraftArray: ", aircrafts);
   };
@@ -98,6 +100,7 @@ export class App extends Component {
       aircraftArray: planesArray,
       activeButton: "planesButton",
       isCartButton: false, //! тригер: "якщо активна кнопка «Кошик»"
+      aircraftsArrAfterFiltration: planesArray
     });
   };
 
@@ -114,6 +117,7 @@ export class App extends Component {
       aircraftArray: biplanesArray,
       activeButton: "biplanesButton",
       isCartButton: false, //! тригер: "якщо активна кнопка «Кошик»"
+      aircraftsArrAfterFiltration: biplanesArray
     });
   };
 
@@ -131,6 +135,7 @@ export class App extends Component {
       aircraftArray: helicoptersArray,
       activeButton: "helicoptersButton",
       isCartButton: false, //! тригер: "якщо активна кнопка «Кошик»"
+      aircraftsArrAfterFiltration: helicoptersArray
     });
 
   }
@@ -201,7 +206,7 @@ export class App extends Component {
     const inputData = event.target.value;
     //! потрібно отримати масив з елементом або елементами з aircrafts, назва якого/яких містить символ з inputData на початку властивості name.brief
     
-    const onlyInputSearchValue = aircrafts.filter(item => item.name.brief.toLowerCase().startsWith(inputData.trim().toLowerCase()));
+    const onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => item.name.brief.toLowerCase().startsWith(inputData.trim().toLowerCase()));
     console.log("✅onlyInputSearchValue: ", onlyInputSearchValue);
     // console.log("value: ", event.target.value);
     this.setState({
@@ -280,7 +285,7 @@ export class App extends Component {
     const selectedModels = updateSelectedModels(indicesSelectedModels, aircrafts).sort((firstModel, secondModel) => firstModel.name.brief.localeCompare(secondModel.name.brief));
     const totalTypes = isCartButton ? selectedModels.length : aircraftArray.length;
 
-    console.log("aircraftArray: ", aircraftArray);  
+    
 
     //! Рахуємо загальну кількість моделей <totalModels> виходячи з наявності фактичної ціни
     const totalModelsArray = isCartButton
@@ -292,15 +297,15 @@ export class App extends Component {
         .filter(value => value > 0));
 
     const totalModels = totalModelsArray.length
-
+    console.log("------------------------------------------------------------");
+    console.log("aircraftArray: ", aircraftArray);  
     // console.log("activeButtonIndex: ", activeButtonIndex);
     console.log("indicesSelectedModels: ", indicesSelectedModels);
     console.log('selectedModels: ', selectedModels);
     console.log("Кількість типів ЛА:", totalTypes);
     console.log("загальну кількість моделей <totalModels>", totalModels);
-
     console.log("inputSearchValue: ", inputSearchValue);
-
+    console.log("------------------------------------------------------------");
 
     return (
       <>
