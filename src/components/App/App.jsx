@@ -199,6 +199,8 @@ export class App extends Component {
     console.log("Подія в input search: ");
     console.log("event: ", event)
     console.log("value: ", event.target.value);
+    const searchData = event.target.value;
+    //! потрібно отримати масив з елементом або елементами з aircrafts, назва якого/яких дорінює значенню searchData
   }
 
   //! Формуємо(оновлюємо) масив обраних моделей [selectedModels], імпортуємо
