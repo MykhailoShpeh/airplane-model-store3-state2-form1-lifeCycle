@@ -374,20 +374,21 @@ export class App extends Component {
           selectedModels={selectedModels}
           isCartButton={isCartButton}
         >
-          <PlanesList
-            //todo var.1
-            // items={aircraftArray}
-            //todo var.2
-            //! Приклад початкового сортування на ім'я (за полем name.brief)
-            // items={
-            //   isCartButton
-            //   ? selectedModels.sort((firstModel, secondModel) => firstModel.name.brief.localeCompare(secondModel.name.brief))
-            //     : aircraftArray.sort((firstModel, secondModel) => firstModel.name.brief.localeCompare(secondModel.name.brief))}
+            <PlanesList
+              //todo var.1
+              // items={aircraftArray}
+              //todo var.2
+              //! Приклад початкового сортування на ім'я (за полем name.brief)
+              // items={
+              //   isCartButton
+              //   ? selectedModels.sort((firstModel, secondModel) => firstModel.name.brief.localeCompare(secondModel.name.brief))
+              //     : aircraftArray.sort((firstModel, secondModel) => firstModel.name.brief.localeCompare(secondModel.name.brief))}
 
-            items={isCartButton ? selectedModels : aircraftArray}
-            onActiveId={this.getActiveId}
+              items={isCartButton ? selectedModels : aircraftArray}
+              onActiveId={this.getActiveId}
             indicesSelectedModels={indicesSelectedModels}
-          />
+            totalModels={totalModels}
+            />
         </Section >
         {/* <Section
           // isOn={this.state.isPlanes}>

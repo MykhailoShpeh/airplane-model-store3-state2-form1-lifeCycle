@@ -13,8 +13,8 @@ export function Section({ isOn = true, title, children, bgColor, totalTypes, tot
                 {/* //! CSS-модулі з composes */}
                     {title && <h2 className={css.titleRobotoBold}>{title}</h2>}
                     <h3 className={css.titleTotalTypes}>Кількість типів ЛА: <span>{totalTypes}</span></h3>
-                    <h3 className={css.titleTotaModals}>Загальна кількість моделей: <span>{totalModels}</span></h3>
-                {children}
+                        <h3 className={css.titleTotaModals}>Загальна кількість моделей: <span>{totalModels}</span></h3>
+                        {children}
             </section>}
         </>
     );

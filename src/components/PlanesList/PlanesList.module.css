@@ -1,3 +1,10 @@
+.searchTitle {
+    font-size: 2rem;
+    color: rgb(223, 70, 70);
+    text-align: center;
+    margin-top: 20px;
+}
+
 .list {
     margin-left: 10px;
     margin-right: 10px;
