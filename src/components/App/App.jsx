@@ -45,7 +45,7 @@ export class App extends Component {
     activeButton: "allButton",
     // activeButtonIndex: null,
     indicesSelectedModels: JSON.parse(localStorage.getItem("selectedModelsId")) || [], //! масив індексів обраних моделей
-    selectedModels: [], //! масив обраних моделей
+    selectedModels: (JSON.parse(localStorage.getItem("selectedModelsId")) || []).flatMap((item) => aircrafts.filter((el) => item === el.id)), //! масив обраних моделей
     isCartButton: false, //! тригер: "якщо активна кнопка «Кошик»"
     inputSearchValue: "", //! значення inputSearch
     aircraftsArrAfterFiltration: aircrafts,  //! дубльоване значення aircraftsArr після фільтрації
@@ -318,6 +318,7 @@ export class App extends Component {
     console.log("------------------------------------------------------------");
 
     this.test('Виклик тестової функції')
+
 
     return (
       <>
