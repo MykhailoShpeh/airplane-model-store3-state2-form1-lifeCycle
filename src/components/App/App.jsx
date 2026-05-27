@@ -49,7 +49,8 @@ export class App extends Component {
     isCartButton: false, //! тригер: "якщо активна кнопка «Кошик»"
     inputSearchValue: "", //! значення inputSearch
     aircraftsArrAfterFiltration: aircrafts,  //! дубльоване значення aircraftsArr після фільтрації
-    selectedModelsArrAfterFiltration: (JSON.parse(localStorage.getItem("selectedModelsId")) || []).flatMap((item) => aircrafts.filter((el) => item === el.id)) //! дубльоване значення selectedModels після фільтрації
+    selectedModelsArrAfterFiltration: (JSON.parse(localStorage.getItem("selectedModelsId")) || []).flatMap((item) => aircrafts.filter((el) => item === el.id)), //! дубльоване значення selectedModels після фільтрації
+    searchInputValue: "" //! значення пошукового інпуту
   }
 
   //! 2.localStorage - Створення запису в localStorage під час першого запуску якщо його немає
@@ -83,7 +84,8 @@ export class App extends Component {
       aircraftArray: aircrafts,
       activeButton: "allButton",
       isCartButton: false, //! тригер: "якщо активна кнопка «Кошик»"
-      aircraftsArrAfterFiltration: aircrafts
+      aircraftsArrAfterFiltration: aircrafts,
+      searchInputValue: ""
     });
     console.log("aircraftArray: ", aircrafts);
   };
@@ -101,7 +103,8 @@ export class App extends Component {
       aircraftArray: planesArray,
       activeButton: "planesButton",
       isCartButton: false, //! тригер: "якщо активна кнопка «Кошик»"
-      aircraftsArrAfterFiltration: planesArray
+      aircraftsArrAfterFiltration: planesArray,
+      searchInputValue: ""
     });
   };
 
@@ -118,7 +121,8 @@ export class App extends Component {
       aircraftArray: biplanesArray,
       activeButton: "biplanesButton",
       isCartButton: false, //! тригер: "якщо активна кнопка «Кошик»"
-      aircraftsArrAfterFiltration: biplanesArray
+      aircraftsArrAfterFiltration: biplanesArray,
+      searchInputValue: ""
     });
   };
 
@@ -136,7 +140,8 @@ export class App extends Component {
       aircraftArray: helicoptersArray,
       activeButton: "helicoptersButton",
       isCartButton: false, //! тригер: "якщо активна кнопка «Кошик»"
-      aircraftsArrAfterFiltration: helicoptersArray
+      aircraftsArrAfterFiltration: helicoptersArray,
+      searchInputValue: ""
     });
 
   }
@@ -155,7 +160,8 @@ export class App extends Component {
       aircraftTitle: title,
       // aircraftArray: this.state.selectedModels,
       activeButton: "cartButton",
-      isCartButton: true, //! тригер: "якщо активна кнопка «Кошик»"
+      isCartButton: true,
+      searchInputValue: "" //! тригер: "якщо активна кнопка «Кошик»"
     });
   }
 
@@ -222,11 +228,13 @@ export class App extends Component {
     this.state.isCartButton
       ? this.setState({
         inputSearchValue: inputData,
-        selectedModels: onlyInputSearchValue
+        selectedModels: onlyInputSearchValue,
+        searchInputValue: event.target.value
       })
       : this.setState({
         inputSearchValue: inputData,
         aircraftArray: onlyInputSearchValue,
+        searchInputValue: event.target.value
       })
   }
 
@@ -294,7 +302,8 @@ export class App extends Component {
       indicesSelectedModels,
       selectedModels,
       isCartButton,
-      inputSearchValue
+      inputSearchValue,
+      searchInputValue
     } = this.state;
 
     //! Формуємо(оновлюємо) масив обраних моделей [selectedModels]
@@ -321,6 +330,7 @@ export class App extends Component {
     console.log("Кількість типів ЛА:", totalTypes);
     console.log("загальну кількість моделей <totalModels>", totalModels);
     console.log("inputSearchValue: ", inputSearchValue);
+    console.log("searchInputValue: ", searchInputValue);
     console.log("------------------------------------------------------------");
 
     this.test('Виклик тестової функції')
@@ -368,6 +378,7 @@ export class App extends Component {
 
         <Sorter
           onHandleChangeInputSearchValue={this.handleChangeInputSearchValue}
+          searchInputValue={searchInputValue}
         />
 
         {/* <Section

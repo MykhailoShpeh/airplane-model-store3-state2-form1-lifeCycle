@@ -1,7 +1,8 @@
 import css from './Sorter.module.css'
 
 export function Sorter({
-    onHandleChangeInputSearchValue   //? Підняття стану
+    onHandleChangeInputSearchValue, //? Підняття стану
+    searchInputValue //? Значення інпуту
 }) {
     return (
         <div className={css.sorter}>
@@ -10,6 +11,7 @@ export function Sorter({
                 className={css.input}
                 type="text"
                 placeholder="Введіть ім'я ЛА"
+                value={searchInputValue}
                 // onChange={() => { console.log("Робота з input") }}
                 // onChange={(event) => { onHandleChangeInputSearchValue(event.target.value) }} //todo var.1 ✅
                 onChange={onHandleChangeInputSearchValue}
