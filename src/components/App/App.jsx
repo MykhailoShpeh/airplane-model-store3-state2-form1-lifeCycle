@@ -209,23 +209,28 @@ export class App extends Component {
     let onlyInputSearchValue;
 
     // const onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => item.name.brief.toLowerCase().startsWith(inputData.trim().toLowerCase()));
-    
+
     this.state.isCartButton
       ? onlyInputSearchValue = this.state.selectedModels.filter(item => item.name.brief.toLowerCase().startsWith(inputData.trim().toLowerCase()))
       : onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => item.name.brief.toLowerCase().startsWith(inputData.trim().toLowerCase()));
-    
+
     console.log("✅onlyInputSearchValue: ", onlyInputSearchValue);
-    
+
     // console.log("value: ", event.target.value);
-    this.setState({
-      inputSearchValue: inputData,
-      aircraftArray: onlyInputSearchValue,
-      selectedModels: onlyInputSearchValue
-    });
+
+    this.state.isCartButton
+      ? this.setState({
+        inputSearchValue: inputData,
+        selectedModels: onlyInputSearchValue
+      })
+      : this.setState({
+        inputSearchValue: inputData,
+        aircraftArray: onlyInputSearchValue,
+      })
   }
 
-   test = (value) => {
-     console.log("value: ", value);
+  test = (value) => {
+    console.log("value: ", value);
   }
 
   //! Формуємо(оновлюємо) масив обраних моделей [selectedModels], імпортуємо
@@ -236,27 +241,27 @@ export class App extends Component {
 
     // console.log("temSelectedModels: ", temSelectedModels);
 
-  //   //todo var.1
-  //   // this.state.isCartButton
-  //   //   ? this.setState(
-  //   // prevState =>
-  //   // ({
-  //   //   aircraftArray: prevState.indicesSelectedModels.flatMap((item) => aircrafts.filter((el) => item === el.id))
-  //   //     }))
-  //   //   : this.setState(
-  //   //     prevState =>
-  //   //     ({
-  //   //       selectedModels: prevState.indicesSelectedModels.flatMap((item) => aircrafts.filter((el) => item === el.id))
-  //   //     }))
+    //   //todo var.1
+    //   // this.state.isCartButton
+    //   //   ? this.setState(
+    //   // prevState =>
+    //   // ({
+    //   //   aircraftArray: prevState.indicesSelectedModels.flatMap((item) => aircrafts.filter((el) => item === el.id))
+    //   //     }))
+    //   //   : this.setState(
+    //   //     prevState =>
+    //   //     ({
+    //   //       selectedModels: prevState.indicesSelectedModels.flatMap((item) => aircrafts.filter((el) => item === el.id))
+    //   //     }))
 
-  //   //todo var.2
+    //   //todo var.2
     this.setState(
-        prevState =>
-        ({
-          selectedModels: prevState.indicesSelectedModels.flatMap((item) => aircrafts.filter((el) => item === el.id))
+      prevState =>
+      ({
+        selectedModels: prevState.indicesSelectedModels.flatMap((item) => aircrafts.filter((el) => item === el.id))
       }))
 
-  //   //todo var.3
+    //   //todo var.3
     // return temSelectedModels
   }
 
@@ -301,14 +306,14 @@ export class App extends Component {
     const totalModelsArray = isCartButton
       ? selectedModels
         .flatMap(item => Object.values(item.model.colorsPrice)
-        .filter(value => value > 0))
+          .filter(value => value > 0))
       : aircraftArray
         .flatMap(item => Object.values(item.model.colorsPrice)
-        .filter(value => value > 0));
+          .filter(value => value > 0));
 
     const totalModels = totalModelsArray.length
     console.log("------------------------------------------------------------");
-    console.log("aircraftArray: ", aircraftArray);  
+    console.log("aircraftArray: ", aircraftArray);
     // console.log("activeButtonIndex: ", activeButtonIndex);
     console.log("indicesSelectedModels: ", indicesSelectedModels);
     console.log('selectedModels: ', selectedModels);
@@ -387,21 +392,21 @@ export class App extends Component {
           selectedModels={selectedModels}
           isCartButton={isCartButton}
         >
-            <PlanesList
-              //todo var.1
-              // items={aircraftArray}
-              //todo var.2
-              //! Приклад початкового сортування на ім'я (за полем name.brief)
-              // items={
-              //   isCartButton
-              //   ? selectedModels.sort((firstModel, secondModel) => firstModel.name.brief.localeCompare(secondModel.name.brief))
-              //     : aircraftArray.sort((firstModel, secondModel) => firstModel.name.brief.localeCompare(secondModel.name.brief))}
+          <PlanesList
+            //todo var.1
+            // items={aircraftArray}
+            //todo var.2
+            //! Приклад початкового сортування на ім'я (за полем name.brief)
+            // items={
+            //   isCartButton
+            //   ? selectedModels.sort((firstModel, secondModel) => firstModel.name.brief.localeCompare(secondModel.name.brief))
+            //     : aircraftArray.sort((firstModel, secondModel) => firstModel.name.brief.localeCompare(secondModel.name.brief))}
 
-              items={isCartButton ? selectedModels : aircraftArray}
-              onActiveId={this.getActiveId}
+            items={isCartButton ? selectedModels : aircraftArray}
+            onActiveId={this.getActiveId}
             indicesSelectedModels={indicesSelectedModels}
             totalModels={totalModels}
-            />
+          />
         </Section >
         {/* <Section
           // isOn={this.state.isPlanes}>
