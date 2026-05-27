@@ -49,6 +49,7 @@ export class App extends Component {
     isCartButton: false, //! тригер: "якщо активна кнопка «Кошик»"
     inputSearchValue: "", //! значення inputSearch
     aircraftsArrAfterFiltration: aircrafts,  //! дубльоване значення aircraftsArr після фільтрації
+    selectedModelsArrAfterFiltration: (JSON.parse(localStorage.getItem("selectedModelsId")) || []).flatMap((item) => aircrafts.filter((el) => item === el.id)) //! дубльоване значення selectedModels після фільтрації
   }
 
   //! 2.localStorage - Створення запису в localStorage під час першого запуску якщо його немає
@@ -211,7 +212,7 @@ export class App extends Component {
     // const onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => item.name.brief.toLowerCase().startsWith(inputData.trim().toLowerCase()));
 
     this.state.isCartButton
-      ? onlyInputSearchValue = this.state.selectedModels.filter(item => item.name.brief.toLowerCase().startsWith(inputData.trim().toLowerCase()))
+      ? onlyInputSearchValue = this.state.selectedModelsArrAfterFiltration.filter(item => item.name.brief.toLowerCase().startsWith(inputData.trim().toLowerCase()))
       : onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => item.name.brief.toLowerCase().startsWith(inputData.trim().toLowerCase()));
 
     console.log("✅onlyInputSearchValue: ", onlyInputSearchValue);
