@@ -39,7 +39,7 @@ export function PlanesList({ items, onActiveId, indicesSelectedModels, totalMode
                                     year={item.info.year}
                                     startTime={item.manufacturing.start}
                                     endTime={item.manufacturing.end}
-                                    country={item.info.country}
+                                    countries={item.info.countries}
                                     type={item.info.type}
                                     price={item.info.price}
                                     description={item.info.description}

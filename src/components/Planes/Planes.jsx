@@ -48,7 +48,7 @@ export function Planes({
     year,
     startTime,
     endTime,
-    country,
+    countries,
     type,
     price,
     description,
@@ -92,7 +92,8 @@ export function Planes({
             <p className={css.textField}><FcTrademark className={css.icon} size={iconSize.md} /> Повна назва: <span className={css.textFieldValue}>{nameFull}</span></p>
             <p className={css.textField}><IoAirplaneSharp className={css.icon} size={iconSize.md} color='red' /> Тип: <span className={css.textFieldValue}>{type}</span></p>
             <p className={css.textField}><GiCeremonialMask className={css.icon} size={iconSize.md} /> Прізвисько: <span className={css.textFieldValue}>{nickname}</span></p>
-            <p className={css.textField}><AiOutlineFlag className={css.icon} size={iconSize.md} /> Країна виробник: <span className={css.textFieldValue}>{country}</span></p>
+            {/* <p className={css.textField}><AiOutlineFlag className={css.icon} size={iconSize.md} /> Країна виробник: <span className={css.textFieldValue}>{countries}</span></p> */}
+            <p className={css.textField}><AiOutlineFlag className={css.icon} size={iconSize.md} /> Країна виробник: <span className={css.textFieldValue}>{countries.map(country => country + ', ')}</span></p>
             <p className={css.textField}><AiOutlineClockCircle className={css.icon} size={iconSize.md} /> Рік випуску: <span className={css.textFieldValue}>{year}</span></p>
             <p className={css.textField}><AiOutlineClockCircle className={css.icon} size={iconSize.md} /> Тривалість виробництва в роках: <span className={css.textFieldValue}>{different}</span></p>
             <p className={css.textField}><CiBadgeDollar className={css.icon} size={iconSize.md} /> Ціна: <span className={css.textFieldValue}>{price}</span></p>
@@ -155,7 +156,7 @@ Planes.propTypes = {
     nameFull: PropTypes.string.isRequired,
     nickname: PropTypes.string.isRequired,
     year: PropTypes.number.isRequired,
-    country: PropTypes.string.isRequired,
+    countries: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     price: PropTypes.string.isRequired,
     // price: PropTypes.number.isRequired,  //! контроль propTypes
