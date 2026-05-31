@@ -52,6 +52,7 @@ export class App extends Component {
     selectedModelsArrAfterFiltration: (JSON.parse(localStorage.getItem("selectedModelsId")) || []).flatMap((item) => aircrafts.filter((el) => item === el.id)), //! дубльоване значення selectedModels після фільтрації
     searchInputValue: "", //! значення пошукового інпуту
     radioButtonValue: "brief", //! значення параметра для пошуку/фільтрації радіо-кнопки
+    inputSearchPlaceholder: "Введіть назву ЛА" //! значення placeholder для inputSearch
   }
 
   //! 2.localStorage - Створення запису в localStorage під час першого запуску якщо його немає
@@ -247,9 +248,32 @@ export class App extends Component {
     console.log("Подія радіо кнопки");
     const target = event.target.value;
     // console.log("target: ", target);
+    let placeHolder = "";
+
+    switch (target) {
+      case "brief":
+        placeHolder = "Введіть назву ЛА"
+        break;
+
+      case "nickname":
+        placeHolder = "Введіть прізвисько ЛА"
+        break;
+
+      case "country":
+        placeHolder = "Введіть країну виробництва ЛА"
+        break;
+      
+      case "year":
+        placeHolder = "Введіть рік випуску ЛА"
+        break;
+
+      default:
+        console.log("Invalid");
+    }
 
     this.setState({
-      radioButtonValue: target
+      radioButtonValue: target,
+      inputSearchPlaceholder: placeHolder
     })
   }
 
@@ -315,7 +339,8 @@ export class App extends Component {
       isCartButton,
       inputSearchValue,
       searchInputValue,
-      radioButtonValue
+      radioButtonValue,
+      inputSearchPlaceholder
     } = this.state;
 
     //! Формуємо(оновлюємо) масив обраних моделей [selectedModels]
@@ -344,6 +369,7 @@ export class App extends Component {
     console.log("inputSearchValue: ", inputSearchValue);
     console.log("searchInputValue: ", searchInputValue);
     console.log("radioButtonValue: ", radioButtonValue);
+    console.log("inputSearchPlaceholder: ", inputSearchPlaceholder);
     console.log("------------------------------------------------------------");
 
     this.test('Виклик тестової функції')
@@ -394,6 +420,7 @@ export class App extends Component {
           searchInputValue={searchInputValue}
           onHandleChangeRadioButtonValue={this.handleChangeRadioButtonValue}
           radioButtonValue={radioButtonValue} //! значення параметра для пошуку/фільтрації радіо-кнопки
+          inputSearchPlaceholder={inputSearchPlaceholder}
         />
 
         {/* <Section

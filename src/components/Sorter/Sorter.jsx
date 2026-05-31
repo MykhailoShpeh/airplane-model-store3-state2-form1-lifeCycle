@@ -4,7 +4,8 @@ export function Sorter({
     onHandleChangeInputSearchValue, //? Підняття стану
     searchInputValue, //? Значення інпуту
     onHandleChangeRadioButtonValue,
-    radioButtonValue
+    radioButtonValue,
+    inputSearchPlaceholder
 }) {
     return (
         <div className={css.sorter}>
@@ -60,7 +61,7 @@ export function Sorter({
             <input
                 className={css.input}
                 type="text"
-                placeholder="Введіть ім'я ЛА"
+                placeholder={inputSearchPlaceholder}
                 value={searchInputValue}
                 // onChange={() => { console.log("Робота з input") }}
                 // onChange={(event) => { onHandleChangeInputSearchValue(event.target.value) }} //todo var.1 ✅
