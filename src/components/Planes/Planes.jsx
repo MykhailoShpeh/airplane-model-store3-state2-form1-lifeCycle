@@ -93,7 +93,11 @@ export function Planes({
             <p className={css.textField}><IoAirplaneSharp className={css.icon} size={iconSize.md} color='red' /> Тип: <span className={css.textFieldValue}>{type}</span></p>
             <p className={css.textField}><GiCeremonialMask className={css.icon} size={iconSize.md} /> Прізвисько: <span className={css.textFieldValue}>{nickname}</span></p>
             {/* <p className={css.textField}><AiOutlineFlag className={css.icon} size={iconSize.md} /> Країна виробник: <span className={css.textFieldValue}>{countries}</span></p> */}
-            <p className={css.textField}><AiOutlineFlag className={css.icon} size={iconSize.md} /> Країна виробник: <span className={css.textFieldValue}>{countries.map((country, index, array) => country + index === array.lenght - 1 ?  '' : ', ')}</span></p>
+            <p className={css.textField}><AiOutlineFlag className={css.icon} size={iconSize.md} /> Країна виробник:
+                <span className={css.textFieldValue}>
+                    {countries.map((country, index, array) => <span key={index}> {country}{index === array.length - 1 ? '' : ', '} </span>)}
+                </span>
+            </p>
             <p className={css.textField}><AiOutlineClockCircle className={css.icon} size={iconSize.md} /> Рік випуску: <span className={css.textFieldValue}>{year}</span></p>
             <p className={css.textField}><AiOutlineClockCircle className={css.icon} size={iconSize.md} /> Тривалість виробництва в роках: <span className={css.textFieldValue}>{different}</span></p>
             <p className={css.textField}><CiBadgeDollar className={css.icon} size={iconSize.md} /> Ціна: <span className={css.textFieldValue}>{price}</span></p>
