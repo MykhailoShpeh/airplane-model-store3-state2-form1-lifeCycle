@@ -50,7 +50,8 @@ export class App extends Component {
     inputSearchValue: "", //! значення inputSearch
     aircraftsArrAfterFiltration: aircrafts,  //! дубльоване значення aircraftsArr після фільтрації
     selectedModelsArrAfterFiltration: (JSON.parse(localStorage.getItem("selectedModelsId")) || []).flatMap((item) => aircrafts.filter((el) => item === el.id)), //! дубльоване значення selectedModels після фільтрації
-    searchInputValue: "" //! значення пошукового інпуту
+    searchInputValue: "", //! значення пошукового інпуту
+    radioButtonValue: "brief", //! значення параметра для пошуку/фільтрації радіо-кнопки
   }
 
   //! 2.localStorage - Створення запису в localStorage під час першого запуску якщо його немає
@@ -242,6 +243,16 @@ export class App extends Component {
     console.log("value: ", value);
   }
 
+  handleChangeRadioButtonValue = event => {
+    console.log("Подія радіо кнопки");
+    const target = event.target.value;
+    // console.log("target: ", target);
+
+    this.setState({
+      radioButtonValue: target
+    })
+  }
+
   //! Формуємо(оновлюємо) масив обраних моделей [selectedModels], імпортуємо
 
   updateSelectedModels = () => {
@@ -303,7 +314,8 @@ export class App extends Component {
       selectedModels,
       isCartButton,
       inputSearchValue,
-      searchInputValue
+      searchInputValue,
+      radioButtonValue
     } = this.state;
 
     //! Формуємо(оновлюємо) масив обраних моделей [selectedModels]
@@ -331,6 +343,7 @@ export class App extends Component {
     console.log("загальну кількість моделей <totalModels>", totalModels);
     console.log("inputSearchValue: ", inputSearchValue);
     console.log("searchInputValue: ", searchInputValue);
+    console.log("radioButtonValue: ", radioButtonValue);
     console.log("------------------------------------------------------------");
 
     this.test('Виклик тестової функції')
@@ -379,6 +392,8 @@ export class App extends Component {
         <Sorter
           onHandleChangeInputSearchValue={this.handleChangeInputSearchValue}
           searchInputValue={searchInputValue}
+          onHandleChangeRadioButtonValue={this.handleChangeRadioButtonValue}
+          radioButtonValue={radioButtonValue} //! значення параметра для пошуку/фільтрації радіо-кнопки
         />
 
         {/* <Section

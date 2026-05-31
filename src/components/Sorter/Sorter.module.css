@@ -9,6 +9,7 @@
         border: 8px solid #719e7091;
         border-radius: 16px;
         background-color: #c0dec9e9;
+        align-items: center;
 }
 
 .title {
