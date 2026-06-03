@@ -247,7 +247,7 @@ export class App extends Component {
       case "year":
         //! за роком випуску
         this.state.isCartButton
-          ? onlyInputSearchValue = this.state.selectedModelsArrAfterFiltration.filter(item => item.info.year.toLowerCase().startsWith(inputData.trim().toLowerCase()))
+          ? onlyInputSearchValue = this.state.selectedModelsArrAfterFiltration.filter(item => String(item.info.year).startsWith(inputData.trim()))
           : onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => String(item.info.year).startsWith(inputData.trim()));
         break;
 
@@ -264,7 +264,7 @@ export class App extends Component {
       ? this.setState({
         inputSearchValue: inputData,
         selectedModels: onlyInputSearchValue,
-        searchInputValue: event.target.value
+        searchInputValue: event.target.value,
       })
       : this.setState({
         inputSearchValue: inputData,
@@ -335,7 +335,8 @@ export class App extends Component {
     this.setState(
       prevState =>
       ({
-        selectedModels: prevState.indicesSelectedModels.flatMap((item) => aircrafts.filter((el) => item === el.id))
+        selectedModels: prevState.indicesSelectedModels.flatMap((item) => aircrafts.filter((el) => item === el.id)),
+        selectedModelsArrAfterFiltration: prevState.indicesSelectedModels.flatMap((item) => aircrafts.filter((el) => item === el.id))
       }))
 
     //   //todo var.3
@@ -373,7 +374,8 @@ export class App extends Component {
       inputSearchValue,
       searchInputValue,
       radioButtonValue,
-      inputSearchPlaceholder
+      inputSearchPlaceholder,
+      selectedModelsArrAfterFiltration
     } = this.state;
 
     //! Формуємо(оновлюємо) масив обраних моделей [selectedModels]
@@ -403,6 +405,7 @@ export class App extends Component {
     console.log("searchInputValue: ", searchInputValue);
     console.log("radioButtonValue: ", radioButtonValue);
     console.log("inputSearchPlaceholder: ", inputSearchPlaceholder);
+    console.log("selectedModelsArrAfterFiltration: ", selectedModelsArrAfterFiltration);
     console.log("------------------------------------------------------------");
 
     this.test('Виклик тестової функції')
