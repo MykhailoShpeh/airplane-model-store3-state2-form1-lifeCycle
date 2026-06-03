@@ -221,56 +221,40 @@ export class App extends Component {
 
     //todo Потрібно використати switch та при кожному значенні радіо кнопок використати перний case для їхньої фільтрації, case - фільтр що за певних умов фільтрує елементи
     
-    // switch (event.target.value) {
-    //   case "brief":
-    //     this.state.isCartButton
-    //       ? onlyInputSearchValue = this.state.selectedModelsArrAfterFiltration.filter(item => item.name.brief.toLowerCase().startsWith(inputData.trim().toLowerCase()))
-    //       : onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => item.name.brief.toLowerCase().startsWith(inputData.trim().toLowerCase()));
-    //     break;
+    switch (this.state.radioButtonValue) {
+      case "brief":
+      //! за іменем
+      this.state.isCartButton
+        ? onlyInputSearchValue = this.state.selectedModelsArrAfterFiltration.filter(item => item.name.brief.toLowerCase().startsWith(inputData.trim().toLowerCase()))
+      : onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => item.name.brief.toLowerCase().startsWith(inputData.trim().toLowerCase()));        break;
 
-    //   case "nickname":
-    //     this.state.isCartButton
-    //       ? onlyInputSearchValue = this.state.selectedModelsArrAfterFiltration.filter(item => item.name.nickname.toLowerCase().startsWith(inputData.trim().toLowerCase()))
-    //       : onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => item.name.nickname.toLowerCase().startsWith(inputData.trim().toLowerCase()));
-    //     break;
+      case "nickname":
+        //! за прізвиськом
+        this.state.isCartButton
+              ? onlyInputSearchValue = this.state.selectedModelsArrAfterFiltration.filter(item => item.name.nickname.toLowerCase().includes(inputData.trim().toLowerCase()))
+          : onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => item.name.nickname.toLowerCase().includes(inputData.trim().toLowerCase()));
+        break;
 
-    //   // case "country":
-    //   //   this.state.isCartButton
-    //   //     ? onlyInputSearchValue = this.state.selectedModelsArrAfterFiltration.filter(item => item.info.countries.toLowerCase().startsWith(inputData.trim().toLowerCase()))
-    //   //     : onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => item.info.countries.toLowerCase().startsWith(inputData.trim().toLowerCase()));
-    //   //   break;
+      case "country":
+        //    //! за країною виробником
+        this.state.isCartButton
+          ? onlyInputSearchValue = this.state.selectedModelsArrAfterFiltration.filter(item => item.info.countries.some((item =>
+            item.trim().toLowerCase().startsWith(inputData.trim().toLowerCase()))))
+          : onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => item.info.countries.some((item =>
+            item.trim().toLowerCase().startsWith(inputData.trim().toLowerCase()))))
+        break;
 
-    //   case "year":
-    //     this.state.isCartButton
-    //       ? onlyInputSearchValue = this.state.selectedModelsArrAfterFiltration.filter(item => item.info.year.toLowerCase().startsWith(inputData.trim().toLowerCase()))
-    //       : onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => item.info.year.toLowerCase().startsWith(inputData.trim().toLowerCase()));
-    //     break;
-
-    //   default:
-    //     console.log("Invalid");
-    // }
-
-    //! за іменем
-    // this.state.isCartButton
-    //   ? onlyInputSearchValue = this.state.selectedModelsArrAfterFiltration.filter(item => item.name.brief.toLowerCase().startsWith(inputData.trim().toLowerCase()))
-    //   : onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => item.name.brief.toLowerCase().startsWith(inputData.trim().toLowerCase()));
-
-    //! за прізвиськом
-    // this.state.isCartButton
-    //       ? onlyInputSearchValue = this.state.selectedModelsArrAfterFiltration.filter(item => item.name.nickname.toLowerCase().includes(inputData.trim().toLowerCase()))
-    //   : onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => item.name.nickname.toLowerCase().includes(inputData.trim().toLowerCase()));
-
-    //! за країною виробником
-    // this.state.isCartButton
-    //   ? onlyInputSearchValue = this.state.selectedModelsArrAfterFiltration.filter(item => item.info.countries.some((item =>
-    //     item.trim().toLowerCase().startsWith(inputData.trim().toLowerCase()))))
-    //   : onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => item.info.countries.some((item =>
-    //     item.trim().toLowerCase().startsWith(inputData.trim().toLowerCase()))))
-    
-    //! за роком випуску
-    this.state.isCartButton
+      case "year":
+        //! за роком випуску
+        this.state.isCartButton
           ? onlyInputSearchValue = this.state.selectedModelsArrAfterFiltration.filter(item => item.info.year.toLowerCase().startsWith(inputData.trim().toLowerCase()))
-      : onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => String(item.info.year).startsWith(inputData.trim()));
+          : onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => String(item.info.year).startsWith(inputData.trim()));
+        break;
+
+      default:
+        console.log("Invalid");
+    }
+
 
     console.log("✅onlyInputSearchValue: ", onlyInputSearchValue);
 
