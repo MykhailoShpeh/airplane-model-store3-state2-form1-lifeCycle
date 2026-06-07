@@ -1,0 +1,25 @@
+
+
+.input {
+    width: 200px;
+    height: 35px;
+    display: block;
+    margin: 0 auto;
+margin-bottom: 30px;
+margin-top: 50px;
+}
+
+.list {
+    width: 50%;
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    outline: 1px solid blue;
+    margin: 0 auto;
+}
+
+.item {
+    width: 200px;
+    outline: 1px solid red;
+    background-color: rgb(200, 247, 247);
+}
