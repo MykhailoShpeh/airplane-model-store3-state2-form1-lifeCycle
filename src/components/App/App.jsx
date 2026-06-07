@@ -303,11 +303,42 @@ export class App extends Component {
       default:
         console.log("Invalid");
     }
+    
+    let array = [];
+
+    switch (this.state.activeButton) {
+      case "allButton":
+        array = aircrafts
+        break;
+
+      case "All":
+        array = aircrafts
+        break;
+
+      case "planesButton":
+        array = aircrafts.filter(item => item.aircraftType === "plane")
+        break;
+
+      case "biplanesButton":
+        array = aircrafts.filter(item => item.aircraftType === "biplane")
+        break;
+      
+      case "helicoptersButton":
+        array = aircrafts.filter(item => item.aircraftType === "helicopter")
+        break;
+
+      default:
+        console.log("Invalid");
+    }
 
     this.setState({
       radioButtonValue: target,
-      inputSearchPlaceholder: placeHolder
+      inputSearchPlaceholder: placeHolder,
+      searchInputValue: "",
+      aircraftArray: array,
+      selectedModels: (JSON.parse(localStorage.getItem("selectedModelsId")) || []).flatMap((item) => aircrafts.filter((el) => item === el.id))
     })
+    
   }
 
   //! Формуємо(оновлюємо) масив обраних моделей [selectedModels], імпортуємо
@@ -382,6 +413,7 @@ export class App extends Component {
     // const selectedModels = indicesSelectedModels.flatMap((item) => aircrafts.filter((el) => item === el.id))
     //! Приклад початкового сортування на ім'я (за полем name.brief)
     // const selectedModels = updateSelectedModels(indicesSelectedModels, aircrafts).sort((firstModel, secondModel) => firstModel.name.brief.localeCompare(secondModel.name.brief));
+    console.log("aircraftArray: ", aircraftArray);  
     const totalTypes = isCartButton ? selectedModels.length : aircraftArray.length;
 
     //! Рахуємо загальну кількість моделей <totalModels> виходячи з наявності фактичної ціни
