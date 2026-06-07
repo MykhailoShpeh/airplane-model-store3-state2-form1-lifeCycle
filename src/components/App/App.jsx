@@ -306,37 +306,12 @@ export class App extends Component {
     
     let array = [];
 
-    switch (this.state.activeButton) {
-      case "allButton":
-        array = aircrafts
-        break;
-
-      case "All":
-        array = aircrafts
-        break;
-
-      case "planesButton":
-        array = aircrafts.filter(item => item.aircraftType === "plane")
-        break;
-
-      case "biplanesButton":
-        array = aircrafts.filter(item => item.aircraftType === "biplane")
-        break;
-      
-      case "helicoptersButton":
-        array = aircrafts.filter(item => item.aircraftType === "helicopter")
-        break;
-
-      default:
-        console.log("Invalid");
-    }
-
     this.setState({
       radioButtonValue: target,
       inputSearchPlaceholder: placeHolder,
       searchInputValue: "",
-      aircraftArray: array,
-      selectedModels: (JSON.parse(localStorage.getItem("selectedModelsId")) || []).flatMap((item) => aircrafts.filter((el) => item === el.id))
+      aircraftArray: this.state.aircraftsArrAfterFiltration,
+      selectedModels: this.state.selectedModelsArrAfterFiltration
     })
     
   }
