@@ -9,6 +9,12 @@ margin-bottom: 30px;
 margin-top: 50px;
 }
 
+.titleCount {
+    color: rgb(255, 187, 0);
+    text-align: center;
+    margin-bottom: 25px;
+}
+
 .list {
     width: 50%;
     display: flex;
@@ -22,4 +28,13 @@ margin-top: 50px;
     width: 200px;
     outline: 1px solid red;
     background-color: rgb(200, 247, 247);
+}
+
+/** Підсвічування тексту */
+.highlight {
+    background-color: yellow;
+    font-weight: bold;
+    color: #000;
+    border-radius: 3px;
+    padding: 0 2px;
 }
