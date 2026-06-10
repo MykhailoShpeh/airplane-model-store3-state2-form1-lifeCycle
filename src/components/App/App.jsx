@@ -226,13 +226,16 @@ export class App extends Component {
       //! за іменем
       this.state.isCartButton
         ? onlyInputSearchValue = this.state.selectedModelsArrAfterFiltration.filter(item => item.name.brief.toLowerCase().startsWith(inputData.trim().toLowerCase()))
-      : onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => item.name.brief.toLowerCase().startsWith(inputData.trim().toLowerCase()));        break;
+        : onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => item.name.brief.toLowerCase().startsWith(inputData.trim().toLowerCase()));
+        
+        break;
 
       case "nickname":
         //! за прізвиськом
         this.state.isCartButton
               ? onlyInputSearchValue = this.state.selectedModelsArrAfterFiltration.filter(item => item.name.nickname.toLowerCase().includes(inputData.trim().toLowerCase()))
           : onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => item.name.nickname.toLowerCase().includes(inputData.trim().toLowerCase()));
+        
         break;
 
       case "country":
@@ -242,6 +245,7 @@ export class App extends Component {
             item.trim().toLowerCase().startsWith(inputData.trim().toLowerCase()))))
           : onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => item.info.countries.some((item =>
             item.trim().toLowerCase().startsWith(inputData.trim().toLowerCase()))))
+        
         break;
 
       case "year":
@@ -249,6 +253,7 @@ export class App extends Component {
         this.state.isCartButton
           ? onlyInputSearchValue = this.state.selectedModelsArrAfterFiltration.filter(item => String(item.info.year).startsWith(inputData.trim()))
           : onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => String(item.info.year).startsWith(inputData.trim()));
+       
         break;
 
       default:
