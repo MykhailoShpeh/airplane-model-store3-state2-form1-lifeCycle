@@ -23,10 +23,10 @@ createRoot(document.getElementById('root')).render(
     <BrowserRouter basename="/airplane-model-store3-state2">
       {/* <App /> */}
       {/* <AppColorBox />  */}
-      {/* <AppSearchDebounce /> */}
+      <AppSearchDebounce />
       {/* <AppSearchDebounceTextBacklight /> */}
       {/* <AppUncontrolledElementsForm onSubmit={values => console.log(values)} /> */}
-      <AppControlledElementsForm />
+      {/* <AppControlledElementsForm /> */}
       {/* <AppComplexForms onSubmit={values => console.log(values)} /> */}
     </BrowserRouter>
   </StrictMode >
