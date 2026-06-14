@@ -8,6 +8,7 @@ import aircrafts from '@/json/aircrafts.json';
 import { PlanesList } from '@/components/PlanesList/PlanesList.jsx';
 import { Filter } from '@/components/Filter/Filter.jsx';
 import { Sorter } from '@/components/Sorter/Sorter.jsx';
+import debounce from "lodash.debounce";
 // import { updateSelectedModels } from '@/utils/';
 //! Приклад початкового сортування на ім'я (за полем name.brief)
 aircrafts.sort((firstModel, secondModel) => firstModel.name.brief.localeCompare(secondModel.name.brief));
@@ -47,7 +48,7 @@ export class App extends Component {
     indicesSelectedModels: JSON.parse(localStorage.getItem("selectedModelsId")) || [], //! масив індексів обраних моделей
     selectedModels: (JSON.parse(localStorage.getItem("selectedModelsId")) || []).flatMap((item) => aircrafts.filter((el) => item === el.id)), //! масив обраних моделей
     isCartButton: false, //! тригер: "якщо активна кнопка «Кошик»"
-    inputSearchValue: "", //! значення inputSearch
+    // inputSearchValue: "", //! значення inputSearch
     aircraftsArrAfterFiltration: aircrafts,  //! дубльоване значення aircraftsArr після фільтрації
     selectedModelsArrAfterFiltration: (JSON.parse(localStorage.getItem("selectedModelsId")) || []).flatMap((item) => aircrafts.filter((el) => item === el.id)), //! дубльоване значення selectedModels після фільтрації
     searchInputValue: "", //! значення пошукового інпуту
@@ -208,75 +209,151 @@ export class App extends Component {
   // }
   //todo
 
-  //todo var.2 ✅
-  handleChangeInputSearchValue = (event) => {
-    console.log("Подія в input search: ");
-    console.log("event: ", event)
-    const inputData = event.target.value;
-    //! потрібно отримати масив з елементом або елементами з aircrafts, назва якого/яких містить символ з inputData на початку властивості name.brief
-
+  performSearch = textInput => {
     let onlyInputSearchValue;
 
     // const onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => item.name.brief.toLowerCase().startsWith(inputData.trim().toLowerCase()));
 
     //todo Потрібно використати switch та при кожному значенні радіо кнопок використати перний case для їхньої фільтрації, case - фільтр що за певних умов фільтрує елементи
-    
+
+
     switch (this.state.radioButtonValue) {
       case "brief":
-      //! за іменем
-      this.state.isCartButton
-        ? onlyInputSearchValue = this.state.selectedModelsArrAfterFiltration.filter(item => item.name.brief.toLowerCase().startsWith(inputData.trim().toLowerCase()))
-        : onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => item.name.brief.toLowerCase().startsWith(inputData.trim().toLowerCase()));
-        
+        //! за іменем
+        this.state.isCartButton
+          ? onlyInputSearchValue = this.state.selectedModelsArrAfterFiltration.filter(item => item.name.brief.toLowerCase().startsWith(textInput.trim().toLowerCase()))
+          : onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => item.name.brief.toLowerCase().startsWith(textInput.trim().toLowerCase()));
+
         break;
 
       case "nickname":
         //! за прізвиськом
         this.state.isCartButton
-              ? onlyInputSearchValue = this.state.selectedModelsArrAfterFiltration.filter(item => item.name.nickname.toLowerCase().includes(inputData.trim().toLowerCase()))
-          : onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => item.name.nickname.toLowerCase().includes(inputData.trim().toLowerCase()));
-        
+          ? onlyInputSearchValue = this.state.selectedModelsArrAfterFiltration.filter(item => item.name.nickname.toLowerCase().includes(textInput.trim().toLowerCase()))
+          : onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => item.name.nickname.toLowerCase().includes(textInput.trim().toLowerCase()));
+
         break;
 
       case "country":
         //    //! за країною виробником
         this.state.isCartButton
           ? onlyInputSearchValue = this.state.selectedModelsArrAfterFiltration.filter(item => item.info.countries.some((item =>
-            item.trim().toLowerCase().startsWith(inputData.trim().toLowerCase()))))
+            item.trim().toLowerCase().startsWith(textInput.trim().toLowerCase()))))
           : onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => item.info.countries.some((item =>
-            item.trim().toLowerCase().startsWith(inputData.trim().toLowerCase()))))
-        
+            item.trim().toLowerCase().startsWith(textInput.trim().toLowerCase()))))
+
         break;
 
       case "year":
         //! за роком випуску
         this.state.isCartButton
-          ? onlyInputSearchValue = this.state.selectedModelsArrAfterFiltration.filter(item => String(item.info.year).startsWith(inputData.trim()))
-          : onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => String(item.info.year).startsWith(inputData.trim()));
-       
+          ? onlyInputSearchValue = this.state.selectedModelsArrAfterFiltration.filter(item => String(item.info.year).startsWith(textInput.trim()))
+          : onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => String(item.info.year).startsWith(textInput.trim()));
+
         break;
 
       default:
         console.log("Invalid");
     }
 
-
     console.log("✅onlyInputSearchValue: ", onlyInputSearchValue);
-
-    // console.log("value: ", event.target.value);
 
     this.state.isCartButton
       ? this.setState({
-        inputSearchValue: inputData,
+        // inputSearchValue: inputData,
         selectedModels: onlyInputSearchValue,
-        searchInputValue: event.target.value,
+        // searchInputValue: event.target.value,
       })
       : this.setState({
-        inputSearchValue: inputData,
+        // inputSearchValue: inputData,
         aircraftArray: onlyInputSearchValue,
-        searchInputValue: event.target.value
+        // searchInputValue: event.target.value
       })
   }
+
+
+  debouncedSearch = debounce((text) => {
+    console.log("⏰debounce_text", text);
+    this.performSearch(text);
+  }, 500);
+
+  //todo var.2 ✅
+  handleChangeInputSearchValue = (event) => {
+    console.log("Подія в input search: ");
+    console.log("event: ", event)
+    const inputData = event.target.value;
+
+    this.setState({
+      searchInputValue: inputData
+    })
+
+    //! потрібно отримати масив з елементом або елементами з aircrafts, назва якого/яких містить символ з inputData на початку властивості name.brief
+
+    //! 6.1 .Переносимо всю логіку фільтрації в окремий метод performSearch:
+    //! _____________Логіка фільтрації___________
+    // let onlyInputSearchValue;
+
+    // // const onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => item.name.brief.toLowerCase().startsWith(inputData.trim().toLowerCase()));
+
+    // //todo Потрібно використати switch та при кожному значенні радіо кнопок використати перний case для їхньої фільтрації, case - фільтр що за певних умов фільтрує елементи
+
+
+    // switch (this.state.radioButtonValue) {
+    //   case "brief":
+    //   //! за іменем
+    //   this.state.isCartButton
+    //     ? onlyInputSearchValue = this.state.selectedModelsArrAfterFiltration.filter(item => item.name.brief.toLowerCase().startsWith(inputData.trim().toLowerCase()))
+    //     : onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => item.name.brief.toLowerCase().startsWith(inputData.trim().toLowerCase()));
+
+    //     break;
+
+    //   case "nickname":
+    //     //! за прізвиськом
+    //     this.state.isCartButton
+    //           ? onlyInputSearchValue = this.state.selectedModelsArrAfterFiltration.filter(item => item.name.nickname.toLowerCase().includes(inputData.trim().toLowerCase()))
+    //       : onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => item.name.nickname.toLowerCase().includes(inputData.trim().toLowerCase()));
+
+    //     break;
+
+    //   case "country":
+    //     //    //! за країною виробником
+    //     this.state.isCartButton
+    //       ? onlyInputSearchValue = this.state.selectedModelsArrAfterFiltration.filter(item => item.info.countries.some((item =>
+    //         item.trim().toLowerCase().startsWith(inputData.trim().toLowerCase()))))
+    //       : onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => item.info.countries.some((item =>
+    //         item.trim().toLowerCase().startsWith(inputData.trim().toLowerCase()))))
+
+    //     break;
+
+    //   case "year":
+    //     //! за роком випуску
+    //     this.state.isCartButton
+    //       ? onlyInputSearchValue = this.state.selectedModelsArrAfterFiltration.filter(item => String(item.info.year).startsWith(inputData.trim()))
+    //       : onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(item => String(item.info.year).startsWith(inputData.trim()));
+
+    //     break;
+
+    //   default:
+    //     console.log("Invalid");
+    // }
+
+    // console.log("✅onlyInputSearchValue: ", onlyInputSearchValue);
+    //! _________________________________________
+
+    //! 6.2 Запуск debounce з логікою фільтрації:
+    this.debouncedSearch(inputData);
+
+
+
+    // console.log("value: ", event.target.value);
+
+
+  }
+
+  //! припинення роботи debounce
+  componentWillUnmount() {
+    this.debouncedSearch.cancel();
+  };
 
   test = (value) => {
     console.log("value: ", value);
@@ -300,7 +377,7 @@ export class App extends Component {
       case "country":
         placeHolder = "Введіть країну виробництва ЛА"
         break;
-      
+
       case "year":
         placeHolder = "Введіть рік випуску ЛА"
         break;
@@ -308,7 +385,7 @@ export class App extends Component {
       default:
         console.log("Invalid");
     }
-    
+
     let array = [];
 
     this.setState({
@@ -318,7 +395,7 @@ export class App extends Component {
       aircraftArray: this.state.aircraftsArrAfterFiltration,
       selectedModels: this.state.selectedModelsArrAfterFiltration
     })
-    
+
   }
 
   //! Формуємо(оновлюємо) масив обраних моделей [selectedModels], імпортуємо
@@ -382,7 +459,7 @@ export class App extends Component {
       indicesSelectedModels,
       selectedModels,
       isCartButton,
-      inputSearchValue,
+      // inputSearchValue,
       searchInputValue,
       radioButtonValue,
       inputSearchPlaceholder,
@@ -393,7 +470,7 @@ export class App extends Component {
     // const selectedModels = indicesSelectedModels.flatMap((item) => aircrafts.filter((el) => item === el.id))
     //! Приклад початкового сортування на ім'я (за полем name.brief)
     // const selectedModels = updateSelectedModels(indicesSelectedModels, aircrafts).sort((firstModel, secondModel) => firstModel.name.brief.localeCompare(secondModel.name.brief));
-    console.log("aircraftArray: ", aircraftArray);  
+    console.log("aircraftArray: ", aircraftArray);
     const totalTypes = isCartButton ? selectedModels.length : aircraftArray.length;
 
     //! Рахуємо загальну кількість моделей <totalModels> виходячи з наявності фактичної ціни
@@ -413,7 +490,7 @@ export class App extends Component {
     console.log('selectedModels: ', selectedModels);
     console.log("Кількість типів ЛА:", totalTypes);
     console.log("загальну кількість моделей <totalModels>", totalModels);
-    console.log("inputSearchValue: ", inputSearchValue);
+    // console.log("inputSearchValue: ", inputSearchValue);
     console.log("searchInputValue: ", searchInputValue);
     console.log("radioButtonValue: ", radioButtonValue);
     console.log("inputSearchPlaceholder: ", inputSearchPlaceholder);
