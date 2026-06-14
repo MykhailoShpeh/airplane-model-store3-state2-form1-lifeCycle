@@ -61,16 +61,6 @@ export class AppSearchDebounce extends Component {
         this.debouncedSearch.cancel();
     };
 
-    //* Якщо користувач буде вводити: . + * ? [ ] ( )
-    //* то RegExp потрібно екранувати допоміжною функцією:
-    escapeRegExp = (str) => {
-        return str.replace(
-            /[.*+?^${}()|[\]\\]/g,
-            "\\$&"
-        );
-    };
-
-
     //* Функція підсвічування тексту
     highlightText = (text, keyword) => {
         if (!keyword) return text;
@@ -93,6 +83,15 @@ export class AppSearchDebounce extends Component {
                     )
                     : part
             );
+    };
+
+    //* Якщо користувач буде вводити: . + * ? [ ] ( )
+    //* то RegExp потрібно екранувати допоміжною функцією:
+    escapeRegExp = (str) => {
+        return str.replace(
+            /[.*+?^${}()|[\]\\]/g,
+            "\\$&"
+        );
     };
 
     //* Використання RegExp з экрануванням допоміжною функцією:

@@ -11,7 +11,13 @@ import { getBgColorCSSModule } from '@/utils/getBackgroundColor.js';
 
 //! Для визначення кольору фону картки в залежності від значення "year"
 
-export function PlanesList({ items, onActiveId, indicesSelectedModels, totalModels }) {
+export function PlanesList({
+    items,
+    onActiveId,
+    indicesSelectedModels,
+    totalModels,
+    onHighlightTextProtection,
+    searchInputValue }) {
     // console.log(getBgColorCSSModule(2000))
 
     // console.log("items: ", items)
@@ -46,6 +52,8 @@ export function PlanesList({ items, onActiveId, indicesSelectedModels, totalMode
                                     backgroundCardTitle={item.aircraftType}
                                     onActiveId={onActiveId}
                                     indicesSelectedModels={indicesSelectedModels}
+                                    onHighlightTextProtection={onHighlightTextProtection}
+                                    searchInputValue={searchInputValue}
                                 />
                             </li>
                         )}
