@@ -17,7 +17,9 @@ export function PlanesList({
     indicesSelectedModels,
     totalModels,
     // onHighlightTextProtection,
-    searchInputValue }) {
+    searchInputValue,
+    radioButtonValue
+}) {
     // console.log(getBgColorCSSModule(2000))
 
     // console.log("items: ", items)
@@ -54,6 +56,7 @@ export function PlanesList({
                                     indicesSelectedModels={indicesSelectedModels}
                                     // onHighlightTextProtection={onHighlightTextProtection}
                                     searchInputValue={searchInputValue}
+                                    radioButtonValue={radioButtonValue}
                                 />
                             </li>
                         )}

@@ -55,7 +55,8 @@ export function Planes({
     onActiveId,
     indicesSelectedModels,
     // onHighlightTextProtection,
-    searchInputValue
+    searchInputValue,
+    radioButtonValue
 }) {
     function printlActualimages(urlActual) {
         urlActual.map
@@ -94,7 +95,7 @@ export function Planes({
             <p className={css.textField}><FcTrademark className={css.icon} size={iconSize.md} /> Повна назва: <span className={css.textFieldValue}>{nameFull}</span></p>
             <p className={css.textField}><IoAirplaneSharp className={css.icon} size={iconSize.md} color='red' /> Тип: <span className={css.textFieldValue}>{type}</span></p>
             {/* <p className={css.textField}><GiCeremonialMask className={css.icon} size={iconSize.md} /> Прізвисько: <span className={css.textFieldValue}>{nickname}</span></p> */}
-            <p className={css.textField}><GiCeremonialMask className={css.icon} size={iconSize.md} /> Прізвисько: <span className={css.textFieldValue}>{highlightTextProtection(nickname, searchInputValue)}</span></p>
+            <p className={css.textField}><GiCeremonialMask className={css.icon} size={iconSize.md} /> Прізвисько: <span className={css.textFieldValue}>{radioButtonValue === "nickname" ? highlightTextProtection(nickname, searchInputValue) : nickname}</span></p>
             {/* <p className={css.textField}><AiOutlineFlag className={css.icon} size={iconSize.md} /> Країна виробник: <span className={css.textFieldValue}>{countries}</span></p> */}
             <p className={css.textField}><AiOutlineFlag className={css.icon} size={iconSize.md} /> Країна виробник:
                 <span className={css.textFieldValue}>
