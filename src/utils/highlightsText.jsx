@@ -1,7 +1,7 @@
 import css from '@/components/Planes/Planes.module.css'
 
 //* Використання RegExp з экрануванням допоміжною функцією:
-  export function highlightTextProtection(text, keyword) {
+export function highlightTextProtection(text, keyword, radioButtonValue) {
     if (!keyword) return text;
 
     const escapedKeyword = escapeRegExp(keyword);
@@ -14,7 +14,7 @@ import css from '@/components/Planes/Planes.module.css'
     return text
       .split(regex)
       .map((part, index) =>
-        part.toLowerCase() === keyword.toLowerCase()
+        part.toLowerCase() === keyword.toLowerCase() && radioButtonValue === "nickname"
           ? (
             <span
               key={index}
