@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import defaultImage from "@/components/Planes/default.jpg"; //! Дефолтне зображення
 import template from "@/components/Planes/template-out-of-stock.jpg";
 import css from './Planes.module.css';
-import { getManufacturingYears } from '@/utils/formatDateDuration.js'
+import { getManufacturingYears, highlightTextProtection } from '@/utils'
 import { ActualImageModal } from '@/components/ActualImageModal/ActualImageModal.jsx'
 
 import { IoAirplaneSharp } from "react-icons/io5";
@@ -54,7 +54,7 @@ export function Planes({
     description,
     onActiveId,
     indicesSelectedModels,
-    onHighlightTextProtection,
+    // onHighlightTextProtection,
     searchInputValue
 }) {
     function printlActualimages(urlActual) {
@@ -94,7 +94,7 @@ export function Planes({
             <p className={css.textField}><FcTrademark className={css.icon} size={iconSize.md} /> Повна назва: <span className={css.textFieldValue}>{nameFull}</span></p>
             <p className={css.textField}><IoAirplaneSharp className={css.icon} size={iconSize.md} color='red' /> Тип: <span className={css.textFieldValue}>{type}</span></p>
             {/* <p className={css.textField}><GiCeremonialMask className={css.icon} size={iconSize.md} /> Прізвисько: <span className={css.textFieldValue}>{nickname}</span></p> */}
-            <p className={css.textField}><GiCeremonialMask className={css.icon} size={iconSize.md} /> Прізвисько: <span className={css.textFieldValue}>{onHighlightTextProtection(nickname, searchInputValue)}</span></p>
+            <p className={css.textField}><GiCeremonialMask className={css.icon} size={iconSize.md} /> Прізвисько: <span className={css.textFieldValue}>{highlightTextProtection(nickname, searchInputValue)}</span></p>
             {/* <p className={css.textField}><AiOutlineFlag className={css.icon} size={iconSize.md} /> Країна виробник: <span className={css.textFieldValue}>{countries}</span></p> */}
             <p className={css.textField}><AiOutlineFlag className={css.icon} size={iconSize.md} /> Країна виробник:
                 <span className={css.textFieldValue}>

@@ -354,41 +354,41 @@ export class App extends Component {
     this.debouncedSearch.cancel();
   };
 
-  //* Якщо користувач буде вводити: . + * ? [ ] ( )
-  //* то RegExp потрібно екранувати допоміжною функцією:
-  escapeRegExp = (str) => {
-    return str.replace(
-      /[.*+?^${}()|[\]\\]/g,
-      "\\$&"
-    );
-  };
+  // //* Якщо користувач буде вводити: . + * ? [ ] ( )
+  // //* то RegExp потрібно екранувати допоміжною функцією:
+  // escapeRegExp = (str) => {
+  //   return str.replace(
+  //     /[.*+?^${}()|[\]\\]/g,
+  //     "\\$&"
+  //   );
+  // };
 
-  //* Використання RegExp з экрануванням допоміжною функцією:
-  highlightTextProtection = (text, keyword) => {
-    if (!keyword) return text;
+  // //* Використання RegExp з экрануванням допоміжною функцією:
+  // highlightTextProtection = (text, keyword) => {
+  //   if (!keyword) return text;
 
-    const escapedKeyword = this.escapeRegExp(keyword);
+  //   const escapedKeyword = this.escapeRegExp(keyword);
 
-    const regex = new RegExp(
-      `(${escapedKeyword})`,
-      "gi"
-    );
+  //   const regex = new RegExp(
+  //     `(${escapedKeyword})`,
+  //     "gi"
+  //   );
 
-    return text
-      .split(regex)
-      .map((part, index) =>
-        part.toLowerCase() === keyword.toLowerCase()
-          ? (
-            <span
-              key={index}
-              className={css.highlight}
-            >
-              {part}
-            </span>
-          )
-          : part
-      );
-  };
+  //   return text
+  //     .split(regex)
+  //     .map((part, index) =>
+  //       part.toLowerCase() === keyword.toLowerCase()
+  //         ? (
+  //           <span
+  //             key={index}
+  //             className={css.highlight}
+  //           >
+  //             {part}
+  //           </span>
+  //         )
+  //         : part
+  //     );
+  // };
 
   test = (value) => {
     console.log("value: ", value);
@@ -622,7 +622,7 @@ export class App extends Component {
             onActiveId={this.getActiveId}
             indicesSelectedModels={indicesSelectedModels}
             totalModels={totalModels}
-            onHighlightTextProtection={this.highlightTextProtection}
+            // onHighlightTextProtection={this.highlightTextProtection}
             searchInputValue={searchInputValue}
           />
         </Section >

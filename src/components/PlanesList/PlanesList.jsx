@@ -16,7 +16,7 @@ export function PlanesList({
     onActiveId,
     indicesSelectedModels,
     totalModels,
-    onHighlightTextProtection,
+    // onHighlightTextProtection,
     searchInputValue }) {
     // console.log(getBgColorCSSModule(2000))
 
@@ -52,7 +52,7 @@ export function PlanesList({
                                     backgroundCardTitle={item.aircraftType}
                                     onActiveId={onActiveId}
                                     indicesSelectedModels={indicesSelectedModels}
-                                    onHighlightTextProtection={onHighlightTextProtection}
+                                    // onHighlightTextProtection={onHighlightTextProtection}
                                     searchInputValue={searchInputValue}
                                 />
                             </li>

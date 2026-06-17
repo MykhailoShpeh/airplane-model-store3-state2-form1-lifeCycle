@@ -98,12 +98,3 @@
     composes: button;
     border: 6px #9accf5 solid;
 }
-
-/** Підсвічування тексту */
-.highlight {
-    background-color: yellow;
-    font-weight: bold;
-    color: #000;
-    border-radius: 3px;
-    padding: 0 2px;
-}
