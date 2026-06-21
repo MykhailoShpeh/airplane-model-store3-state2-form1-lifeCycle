@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 
-import { ComplexForms } from '@/components/ComplexForms/ComplexForms.jsx'
+// import { ComplexForms } from '@/components/ComplexForms/ComplexForms.jsx'
+
+import { ComplexFormsGenerationID } from '@/components/ComplexFormsGenerationID/ComplexFormsGenerationID.jsx'
 
 import css from "./AppComplexForms.module.css";
 
@@ -34,8 +36,13 @@ export class AppComplexForms extends Component {
         console.log("______________________________________________");
         return (
             <>
+                {/*//! 4.4.3.Складні форми */}
                 {/* <ComplexForms onSubmit={values => console.log(values)} /> */}
-                <ComplexForms onSubmit={this.submitForm} />
+                {/* <ComplexForms onSubmit={this.submitForm} /> */}
+
+                {/*//! + 4.4.4.Генерація Id елементів форми */}
+                <ComplexFormsGenerationID onSubmit={this.submitForm} />
+                <ComplexFormsGenerationID onSubmit={this.submitForm} />
             </>
         );
     }
