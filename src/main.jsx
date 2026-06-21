@@ -28,7 +28,7 @@ createRoot(document.getElementById('root')).render(
       {/* <AppUncontrolledElementsForm onSubmit={values => console.log(values)} /> */}
       {/* <AppControlledElementsForm /> */}
       <AppComplexForms
-        // onSubmit={values => console.log(values)}
+        onSubmit={values => console.log(values)}
       />
     </BrowserRouter>
   </StrictMode >

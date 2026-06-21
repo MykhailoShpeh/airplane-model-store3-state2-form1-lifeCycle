@@ -1,14 +1,29 @@
 import React, { Component } from "react";
 import css from "./AppComplexForms.module.css";
 
+const INITIAL_STATE = {
+    loginInputValue: "",
+    passwordInputValue: "",
+};
+
 
 export class AppComplexForms extends Component {
-    state = {
-        // inputValue: "asd",
-        loginInputValue: "",
-        passwordInputValue: "",
+    // state = {
+    
+    //     // inputValue: "asd",
+    //     loginInputValue: "",
+    //     passwordInputValue: "",
+    // };
+
+    state = { ...INITIAL_STATE };
+
+    //! Скидання state в початкове значення INITIAL_STATE
+    reset = () => {
+        this.setState({ ...INITIAL_STATE });
     };
 
+
+    // todo: OLD
     // handleSubmit = event => {
     //     event.preventDefault();
     //     const form = event.currentTarget;
@@ -19,27 +34,40 @@ export class AppComplexForms extends Component {
     //     form.reset();
     // };
 
-    handleChangeLogin = event => {
-        console.log("event.currentTarget:", event.currentTarget);
-        console.log("event.currentTarget.name:", event.currentTarget.name);
-        console.log("event.currentTarget.value:", event.currentTarget.value);
+    // todo: NEW
+    handleSubmit = event => { 
+        event.preventDefault();
+        console.log("Підтвердження форми");
+        const { loginInputValue, passwordInputValue } = this.state;
+        console.log(`Login: ${loginInputValue}, Password: ${passwordInputValue}`);
+        this.props.onSubmit({ ...this.state });
+        
+        //! очищуємо поля всіх інпутів
+        this.reset()
+    }
 
-        // console.log("event.target.value:", event.target.value);
-        const text = event.target.value;
 
-        this.setState({
-            loginInputValue: text
-         });
-    };
+    // handleChangeLogin = event => {
+    //     console.log("event.currentTarget:", event.currentTarget);
+    //     console.log("event.currentTarget.name:", event.currentTarget.name);
+    //     console.log("event.currentTarget.value:", event.currentTarget.value);
 
-    handleChangePassword = event => {
-        console.log("event.target.value:", event.target.value);
-        const text = event.target.value;
+    //     // console.log("event.target.value:", event.target.value);
+    //     const text = event.target.value;
 
-        this.setState({
-            passwordInputValue: text
-        });
-    };
+    //     this.setState({
+    //         loginInputValue: text
+    //      });
+    // };
+
+    // handleChangePassword = event => {
+    //     console.log("event.target.value:", event.target.value);
+    //     const text = event.target.value;
+
+    //     this.setState({
+    //         passwordInputValue: text
+    //     });
+    // };
 
     handleChange = event => {
         // console.log("event.currentTarget:", event.currentTarget);
@@ -54,6 +82,7 @@ export class AppComplexForms extends Component {
 
         // //! Зберігаємо значення інпутів в state
         this.setState({
+            //! Використовуємо властивості об'єкта, що обчислюються
             [name]: value,
         });
 
