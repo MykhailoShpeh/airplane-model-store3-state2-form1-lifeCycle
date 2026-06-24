@@ -4,6 +4,8 @@ import React, { Component } from "react";
 
 import { ComplexFormsGenerationID } from '@/components/ComplexFormsGenerationID/ComplexFormsGenerationID.jsx'
 
+import { ComplexFormsGenerationIDRadioButton } from '@/components/ComplexFormsGenerationIDRadioButton/ComplexFormsGenerationIDRadioButton.jsx'
+
 import css from "./AppComplexForms.module.css";
 
 
@@ -12,6 +14,7 @@ export class AppComplexForms extends Component {
     state = {
         formInputLogin: "",
         formInputPassword: "",
+        experience: "junior"
     };
 
     submitForm = (data) => {
@@ -19,7 +22,8 @@ export class AppComplexForms extends Component {
 
         this.setState({
             formInputLogin: data.loginInputValue,
-            formInputPassword: data.passwordInputValue
+            formInputPassword: data.passwordInputValue,
+            experience: data.experience
         })
      }
 
@@ -27,12 +31,14 @@ export class AppComplexForms extends Component {
 
         const {
             formInputLogin,
-            formInputPassword
+            formInputPassword,
+            experience
         } = this.state
 
         console.log("----------------------------------------------");
         console.log("📗 Значення formInputLogin:", formInputLogin);
         console.log("📗 Значення formInputPassword:", formInputPassword);
+        console.log("📗 Значення experience:", experience);
         console.log("______________________________________________");
         return (
             <>
@@ -41,8 +47,11 @@ export class AppComplexForms extends Component {
                 {/* <ComplexForms onSubmit={this.submitForm} /> */}
 
                 {/*//! + 4.4.4.Генерація Id елементів форми */}
-                <ComplexFormsGenerationID onSubmit={this.submitForm} />
-                <ComplexFormsGenerationID onSubmit={this.submitForm} />
+                {/* <ComplexFormsGenerationID onSubmit={this.submitForm} />
+                <ComplexFormsGenerationID onSubmit={this.submitForm} /> */}
+
+                {/*//! 4.4.5 Радіокнопки */}
+                <ComplexFormsGenerationIDRadioButton onSubmit={this.submitForm} />
             </>
         );
     }
