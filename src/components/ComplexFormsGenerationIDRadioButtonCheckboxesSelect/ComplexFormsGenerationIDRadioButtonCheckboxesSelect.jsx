@@ -7,7 +7,7 @@ const INITIAL_STATE = {
     passwordInputValue: "",
     experience: "junior",
     age: "",
-
+    licence: false
 };
 
 export class ComplexFormsGenerationIDRadioButtonCheckboxesSelect extends Component {
@@ -54,12 +54,23 @@ export class ComplexFormsGenerationIDRadioButtonCheckboxesSelect extends Compone
 
     };
 
+    handleChangeCheckbox = event => { 
+        console.log("event.currentTarget.checked:", event.currentTarget.checked);
+        //! Деструктуризуємо:
+        const { checked } = event.currentTarget;
+
+        this.setState({ licence: checked });
+
+    }
+
+
     render() {
         const {
             loginInputValue,
             passwordInputValue,
             experience,
-            age
+            age,
+            licence
         } = this.state
 
         console.log("----------------------------------------------");
@@ -67,6 +78,7 @@ export class ComplexFormsGenerationIDRadioButtonCheckboxesSelect extends Compone
         console.log("📕 Значення passwordInputValue:", passwordInputValue);
         console.log("📕 Значення experience:", experience);
         console.log("📕 Значення age:", age);
+        console.log("📕 Значення licence:", licence);
         console.log("______________________________________________");
         return (
             <form
@@ -158,10 +170,22 @@ export class ComplexFormsGenerationIDRadioButtonCheckboxesSelect extends Compone
                     </select>
                 </label>
 
+                {/*//! + 4.4.6.Чекбокс */}
+                <label>
+                    Згоден з умовами
+                    <input
+                        type="checkbox"
+                        name="licence"
+                        checked={licence}
+                        onChange={this.handleChangeCheckbox}
+                    />
+                </label>
+
 
                 <button
                     className={css.loginButton}
                     type="submit"
+                    disabled={!licence} //! блокування кнопки чекбоксом
                 >
                     Login
                 </button>
