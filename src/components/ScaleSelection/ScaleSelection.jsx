@@ -2,14 +2,42 @@ import React, { Component } from "react";
 
 import css from './ScaleSelection.module.css'
 
-const INITIAL_STATE = {};
+const INITIAL_STATE = {
+    modelScale: "all"
+};
 
 export class ScaleSelection extends Component {
     state = {
         ...INITIAL_STATE
     }
 
+    //! Скидання state в початкове значення INITIAL_STATE
+    reset = () => {
+        this.setState({ ...INITIAL_STATE });
+    };
+
+    handleChangeModelScale = event => {
+        //! Деструктуризуємо:
+        const { name, value } = event.currentTarget;
+
+        console.log("Значення name:", name);
+        console.log("Значення value:", value);
+
+        // //! Зберігаємо значення інпутів в state
+        this.setState({
+            //! Використовуємо властивості об'єкта, що обчислюються
+            [name]: value,
+        });
+    }
+
     render() {
+
+        const {
+            modelScale
+        } = this.state
+
+        console.log("modelScale: ", modelScale)
+
         return (
             <div className={css.scaleSelectionBox}>
                 <h3 className={css.scaleSelectionTitle}>Оберіть масштаб моделі:</h3>
@@ -17,8 +45,8 @@ export class ScaleSelection extends Component {
                 <select
                     className={css.scaleSelectionSelect}
                     name="modelScale"
-                    // value={scale}
-                    // onChange={handleChangeModelScale}
+                        value={modelScale}
+                    onChange={this.handleChangeModelScale}
                 >
                     <option className={css.scaleSelectionOption} value="all">Всі</option>
                     <option className={css.scaleSelectionOption} value="200">1:200</option>
