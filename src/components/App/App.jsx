@@ -6,6 +6,7 @@ import planes from '@/json/planes.json';
 import helicopters from '@/json/helicopters.json';
 import aircrafts from '@/json/aircrafts.json';
 import { PlanesList } from '@/components/PlanesList/PlanesList.jsx';
+import { ScaleSelection} from '@/components/ScaleSelection/ScaleSelection.jsx';
 import { Filter } from '@/components/Filter/Filter.jsx';
 import { Sorter } from '@/components/Sorter/Sorter.jsx';
 import debounce from "lodash.debounce";
@@ -566,6 +567,9 @@ export class App extends Component {
                 </button>
         
                 </div> */}
+        <ScaleSelection
+        
+        />
         <Filter
           onAll={this.allFiltration}
           onPlanes={this.planeFiltration}
