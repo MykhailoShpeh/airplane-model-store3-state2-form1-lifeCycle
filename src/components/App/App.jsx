@@ -54,7 +54,8 @@ export class App extends Component {
     selectedModelsArrAfterFiltration: (JSON.parse(localStorage.getItem("selectedModelsId")) || []).flatMap((item) => aircrafts.filter((el) => item === el.id)), //! дубльоване значення selectedModels після фільтрації
     searchInputValue: "", //! значення пошукового інпуту
     radioButtonValue: "brief", //! значення параметра для пошуку/фільтрації радіо-кнопки
-    inputSearchPlaceholder: "Введіть назву ЛА" //! значення placeholder для inputSearch
+    inputSearchPlaceholder: "Введіть назву ЛА", //! значення placeholder для inputSearch
+    modelsSelectedScale: [], //! масив моделей обраного масштабу
   }
 
   //! 2.localStorage - Створення запису в localStorage під час першого запуску якщо його немає
@@ -74,7 +75,6 @@ export class App extends Component {
       );
     }
   };
-
 
   allFiltration = () => {
     console.log("All")
@@ -486,6 +486,15 @@ export class App extends Component {
   //   return "Магазин моделей вертольотів"
   // };
 
+  //! Функція яка отримує масив моделей обраного масштабу з компоненту ScaleSelection та додає його в state
+  getModelsSelectedScale = modelsScale => {
+    console.log("Сюди приходить масив моделей обраного масштабу:", modelsScale);
+    this.setState({
+      modelsSelectedScale: modelsScale
+    })
+  }
+
+
   render() {
 
     const {
@@ -501,7 +510,8 @@ export class App extends Component {
       searchInputValue,
       radioButtonValue,
       inputSearchPlaceholder,
-      selectedModelsArrAfterFiltration
+      selectedModelsArrAfterFiltration,
+      modelsSelectedScale
     } = this.state;
 
     //! Формуємо(оновлюємо) масив обраних моделей [selectedModels]
@@ -533,6 +543,7 @@ export class App extends Component {
     console.log("radioButtonValue: ", radioButtonValue);
     console.log("inputSearchPlaceholder: ", inputSearchPlaceholder);
     console.log("selectedModelsArrAfterFiltration: ", selectedModelsArrAfterFiltration);
+    console.log("🟢modelsSelectedScale: ", modelsSelectedScale);
     console.log("------------------------------------------------------------");
 
     this.test('Виклик тестової функції')
@@ -568,7 +579,7 @@ export class App extends Component {
         
                 </div> */}
         <ScaleSelection
-        
+        onGetModelsSelectedScale={this.getModelsSelectedScale}
         />
         <Filter
           onAll={this.allFiltration}

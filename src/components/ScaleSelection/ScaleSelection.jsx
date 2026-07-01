@@ -4,20 +4,11 @@ import aircrafts from '@/json/aircrafts.json';
 
 import css from './ScaleSelection.module.css'
 
-const INITIAL_STATE = {
-    modelScale: "all",
-    modelsSelectedScale: []
-};
-
 export class ScaleSelection extends Component {
     state = {
-        ...INITIAL_STATE
+        modelScale: "all",
+        // modelsSelectedScale: []
     }
-
-    //! Скидання state в початкове значення INITIAL_STATE
-    reset = () => {
-        this.setState({ ...INITIAL_STATE });
-    };
 
     handleChangeModelScale = event => {
         //! Деструктуризуємо:
@@ -26,32 +17,39 @@ export class ScaleSelection extends Component {
         console.log("Значення name:", name);
         console.log("Значення value:", value);
 
+        //! Деструктуризуємо props:
+        const {
+            onGetModelsSelectedScale
+        } = this.props;
+
 
         const modelsSelectedScale = value == "all"
             ? aircrafts
             : aircrafts.filter(aircraft => aircraft.model.scale.some(item =>
                 item === Number(value)))
 
-                // console.log("🔴modelsSelectedScale: ", modelsSelectedScale)
+        // console.log("🔴modelsSelectedScale: ", modelsSelectedScale)
 
         // //! Зберігаємо значення інпутів в state
         this.setState({
             //! Використовуємо властивості об'єкта, що обчислюються
             [name]: value,
-            modelsSelectedScale,
+            // modelsSelectedScale,
         });
+
+        onGetModelsSelectedScale(modelsSelectedScale);
     }
 
     render() {
 
         const {
             modelScale,
-            modelsSelectedScale
+            // modelsSelectedScale
         } = this.state
 
         console.log("-----------------------------------------------");
         console.log("🔴modelScale: ", modelScale)
-        console.log("🔴modelsSelectedScale: ", modelsSelectedScale)
+        // console.log("🔴modelsSelectedScale: ", modelsSelectedScale)
         console.log("-----------------------------------------------");
 
         return (
