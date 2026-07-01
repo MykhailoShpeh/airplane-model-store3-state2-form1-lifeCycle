@@ -5,7 +5,8 @@ import aircrafts from '@/json/aircrafts.json';
 import css from './ScaleSelection.module.css'
 
 const INITIAL_STATE = {
-    modelScale: "all"
+    modelScale: "all",
+    modelsSelectedScale: []
 };
 
 export class ScaleSelection extends Component {
@@ -31,22 +32,27 @@ export class ScaleSelection extends Component {
             : aircrafts.filter(aircraft => aircraft.model.scale.some(item =>
                 item === Number(value)))
 
-        console.log("modelsSelectedScale: ", modelsSelectedScale);
+                // console.log("🔴modelsSelectedScale: ", modelsSelectedScale)
 
         // //! Зберігаємо значення інпутів в state
         this.setState({
             //! Використовуємо властивості об'єкта, що обчислюються
             [name]: value,
+            modelsSelectedScale,
         });
     }
 
     render() {
 
         const {
-            modelScale
+            modelScale,
+            modelsSelectedScale
         } = this.state
 
-        console.log("modelScale: ", modelScale)
+        console.log("-----------------------------------------------");
+        console.log("🔴modelScale: ", modelScale)
+        console.log("🔴modelsSelectedScale: ", modelsSelectedScale)
+        console.log("-----------------------------------------------");
 
         return (
             <div className={css.scaleSelectionBox}>
