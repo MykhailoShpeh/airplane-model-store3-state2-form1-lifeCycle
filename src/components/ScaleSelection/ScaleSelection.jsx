@@ -22,7 +22,6 @@ export class ScaleSelection extends Component {
             onGetModelsSelectedScale
         } = this.props;
 
-
         const modelsSelectedScale = value == "all"
             ? aircrafts
             : aircrafts.filter(aircraft => aircraft.model.scale.some(item =>

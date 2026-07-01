@@ -55,7 +55,7 @@ export class App extends Component {
     searchInputValue: "", //! значення пошукового інпуту
     radioButtonValue: "brief", //! значення параметра для пошуку/фільтрації радіо-кнопки
     inputSearchPlaceholder: "Введіть назву ЛА", //! значення placeholder для inputSearch
-    modelsSelectedScale: [], //! масив моделей обраного масштабу
+    modelsSelectedScale: aircrafts, //! масив моделей обраного масштабу
   }
 
   //! 2.localStorage - Створення запису в localStorage під час першого запуску якщо його немає
@@ -96,7 +96,7 @@ export class App extends Component {
 
   planeFiltration = () => {
     console.log("Planes")
-    const planesArray = aircrafts.filter(item => item.aircraftType === "plane")
+    const planesArray = this.state.modelsSelectedScale.filter(item => item.aircraftType === "plane")
     console.log("planesArray: ", planesArray);
     this.setState({
       // isAll: false,
@@ -114,7 +114,7 @@ export class App extends Component {
 
   biplanesFiltration = () => {
     console.log("Biplanes")
-    const biplanesArray = aircrafts.filter(item => item.aircraftType === "biplane")
+    const biplanesArray = this.state.modelsSelectedScale.filter(item => item.aircraftType === "biplane")
     console.log("biplanesArray: ", biplanesArray);
     this.setState({
       // isAll: false,
@@ -133,7 +133,7 @@ export class App extends Component {
   helicopterFiltration = () => {
     console.log("Helicopters")
 
-    const helicoptersArray = aircrafts.filter(item => item.aircraftType === "helicopter")
+    const helicoptersArray = this.state.modelsSelectedScale.filter(item => item.aircraftType === "helicopter")
     console.log("helicoptersArray: ", helicoptersArray);
     this.setState({
       // isAll: false,
@@ -489,11 +489,42 @@ export class App extends Component {
   //! Функція яка отримує масив моделей обраного масштабу з компоненту ScaleSelection та додає його в state
   getModelsSelectedScale = modelsScale => {
     console.log("Сюди приходить масив моделей обраного масштабу:", modelsScale);
-    this.setState({
-      modelsSelectedScale: modelsScale
-    })
-  }
+    //todo  при виборі масштабу потрібно аналізувати стан фільтрів та згідно з обраного фільтру брати необхідний масив для подальшої роботи
 
+    this.setState({
+      modelsSelectedScale: modelsScale,
+      aircraftArray: modelsScale
+    })
+
+    switch (this.state.activeButton) {
+      case "allButton":
+        this.setState({
+          aircraftArray: modelsScale
+        })
+        break;
+
+      case "planesButton":
+        const planesArray = modelsScale.filter(item => item.aircraftType === "plane")
+        this.setState({
+          aircraftArray: planesArray
+        })
+        break;
+
+      case "biplanesButton":
+        const biplanesArray = modelsScale.filter(item => item.aircraftType === "biplane")
+        this.setState({
+          aircraftArray: biplanesArray
+        })
+        break;
+
+      case "helicoptersButton":
+        const helicoptersArray = modelsScale.filter(item => item.aircraftType === "helicopter")
+        this.setState({
+          aircraftArray: helicoptersArray
+        })
+        break;
+      }
+  }
 
   render() {
 
@@ -633,7 +664,9 @@ export class App extends Component {
             //   ? selectedModels.sort((firstModel, secondModel) => firstModel.name.brief.localeCompare(secondModel.name.brief))
             //     : aircraftArray.sort((firstModel, secondModel) => firstModel.name.brief.localeCompare(secondModel.name.brief))}
 
-            items={isCartButton ? selectedModels : aircraftArray}
+            items={isCartButton 
+              ? selectedModels
+               : aircraftArray}
             onActiveId={this.getActiveId}
             indicesSelectedModels={indicesSelectedModels}
             totalModels={totalModels}
