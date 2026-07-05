@@ -85,10 +85,10 @@ export class App extends Component {
       // isHelicopters: false,
       bgColor: 'green',
       aircraftTitle: "Магазин моделей літальних апаратів",
-      aircraftArray: aircrafts,
+      aircraftArray: this.state.modelsSelectedScale,
       activeButton: "allButton",
       isCartButton: false, //! тригер: "якщо активна кнопка «Кошик»"
-      aircraftsArrAfterFiltration: aircrafts,
+      aircraftsArrAfterFiltration: this.state.modelsSelectedScale,
       searchInputValue: ""
     });
     console.log("aircraftArray: ", aircrafts);
@@ -491,39 +491,33 @@ export class App extends Component {
     console.log("Сюди приходить масив моделей обраного масштабу:", modelsScale);
     //todo  при виборі масштабу потрібно аналізувати стан фільтрів та згідно з обраного фільтру брати необхідний масив для подальшої роботи
 
-    this.setState({
-      modelsSelectedScale: modelsScale,
-      aircraftArray: modelsScale
-    })
+    
+
+    let result = [];
 
     switch (this.state.activeButton) {
       case "allButton":
-        this.setState({
-          aircraftArray: modelsScale
-        })
+          result = modelsScale
         break;
 
       case "planesButton":
-        const planesArray = modelsScale.filter(item => item.aircraftType === "plane")
-        this.setState({
-          aircraftArray: planesArray
-        })
+        result = modelsScale.filter(item => item.aircraftType === "plane")
         break;
 
       case "biplanesButton":
-        const biplanesArray = modelsScale.filter(item => item.aircraftType === "biplane")
-        this.setState({
-          aircraftArray: biplanesArray
-        })
+        result = modelsScale.filter(item => item.aircraftType === "biplane")
         break;
 
       case "helicoptersButton":
-        const helicoptersArray = modelsScale.filter(item => item.aircraftType === "helicopter")
-        this.setState({
-          aircraftArray: helicoptersArray
-        })
+        result = modelsScale.filter(item => item.aircraftType === "helicopter")
         break;
       }
+
+      this.setState({
+      modelsSelectedScale: modelsScale,
+      aircraftArray: result,
+      aircraftsArrAfterFiltration: result
+    })
   }
 
   render() {
