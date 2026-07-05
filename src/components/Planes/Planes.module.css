@@ -1,3 +1,5 @@
+
+
 .textField {
     font-size: 18px;
     font-weight: 700;
@@ -32,6 +34,21 @@
 .planeTitle {
     composes: title;
         background-color: yellow;
+}
+
+h3 {
+    position: relative;
+}
+
+.numberOfModels {
+    width: 30px;
+    height: 30px;
+    font-size: 1.2rem;
+    position: absolute;
+    top: 30%;
+    right: 40px;
+    outline: 2px solid #ff5119;
+    border-radius: 50%;
 }
 
 .biplaneTitle {

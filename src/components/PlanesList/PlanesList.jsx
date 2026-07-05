@@ -57,6 +57,7 @@ export function PlanesList({
                                     // onHighlightTextProtection={onHighlightTextProtection}
                                     searchInputValue={searchInputValue}
                                     radioButtonValue={radioButtonValue}
+                                    modelColorPrice={item.model.colorsPrice}
                                 />
                             </li>
                         )}

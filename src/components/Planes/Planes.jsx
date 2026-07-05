@@ -56,7 +56,8 @@ export function Planes({
     indicesSelectedModels,
     // onHighlightTextProtection,
     searchInputValue,
-    radioButtonValue
+    radioButtonValue,
+    modelColorPrice
 }) {
     function printlActualimages(urlActual) {
         urlActual.map
@@ -83,13 +84,20 @@ export function Planes({
     // console.log(startTime, endTime);
     const different = getManufacturingYears(startTime, endTime)
     // console.log('different:', different)
+
+    //! Рахуємо кількість моделей <numberModels> виходячи з наявності фактичної ціни
+  const numberModels = Object.values(modelColorPrice).filter(value => value > 0).length;
+          console.log("📌📌📌numberModels: ", numberModels)
+
     return (
         <>
             <h3
                 // className={css.planeTitle}
                 className={css[getBgCardTitle(backgroundCardTitle)]}
             >
-                {nameBrief}
+                {nameBrief} 
+
+                {numberModels > 1 && <span className={css.numberOfModels}>{numberModels}</span>}
             </h3>
             <img src={urlMain} alt={nameBrief} />
             <p className={css.textField}><FcTrademark className={css.icon} size={iconSize.md} /> Повна назва: <span className={css.textFieldValue}>{nameFull}</span></p>
