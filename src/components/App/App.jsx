@@ -516,7 +516,8 @@ export class App extends Component {
       this.setState({
       modelsSelectedScale: modelsScale,
       aircraftArray: result,
-      aircraftsArrAfterFiltration: result
+      aircraftsArrAfterFiltration: result,
+      searchInputValue: ""
     })
   }
 
