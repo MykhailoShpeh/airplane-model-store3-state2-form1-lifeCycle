@@ -1,5 +1,7 @@
 import { ColorBox } from "@/components/ColorBox/ColorBox.jsx";
 
+import { ColorBoxLifeCycle } from '@/components/ColorBoxLifeCycle/ColorBoxLifeCycle.jsx'
+
 const colorBoxOptions = [
     { label: 'red', color: '#ff0000' },
     { label: 'orange', color: '#ffa500' },
@@ -11,6 +13,8 @@ const colorBoxOptions = [
 ];
 
 export function AppColorBox() {
-    return <ColorBox colorBoxes={colorBoxOptions} />
-    
-}
+    return (
+      // <ColorBox colorBoxes={colorBoxOptions} />
+      <ColorBoxLifeCycle colorBoxes={colorBoxOptions} />
+    )
+};
