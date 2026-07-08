@@ -87,7 +87,7 @@ export function Planes({
 
     //! Рахуємо кількість моделей <numberModels> виходячи з наявності фактичної ціни
   const numberModels = Object.values(modelColorPrice).filter(value => value > 0).length;
-          console.log("📌📌📌numberModels: ", numberModels)
+        //   console.log("📌📌📌numberModels: ", numberModels)
 
     return (
         <>
