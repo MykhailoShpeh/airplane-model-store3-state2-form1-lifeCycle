@@ -10,9 +10,19 @@ import { ComplexFormsGenerationIDRadioButtonCheckboxesSelect } from '@/component
 
 import { Modal } from '@/components/Modal/Modal.jsx';
 
+import {ColorBoxLifeCycle} from '@/components/ColorBoxLifeCycle/ColorBoxLifeCycle.jsx';
+
 import css from "./AppComplexForms.module.css";
 
-
+const colorBoxOptions = [
+    { label: 'red', color: '#ff0000' },
+    { label: 'orange', color: '#ffa500' },
+    { label: 'yellow', color: '#ffff00' },
+    { label: 'green', color: '#008000' },
+    { label: 'lightblue', color: '#add8e6' },
+    { label: 'blue', color: '#3131ff' },
+    { label: 'violet', color: '#ee82ee' },
+];
 
 export class AppComplexForms extends Component {
     state = {
@@ -59,6 +69,8 @@ export class AppComplexForms extends Component {
             showModal: !showModal
         }));
     }
+
+    
 
     render() {
 
@@ -119,6 +131,7 @@ export class AppComplexForms extends Component {
                         onClick={this.toggleModal}
                     >Закрити модалку</button>
                 </Modal>}
+                <ColorBoxLifeCycle colorBoxes={colorBoxOptions}/>
             </>
         );
     }
