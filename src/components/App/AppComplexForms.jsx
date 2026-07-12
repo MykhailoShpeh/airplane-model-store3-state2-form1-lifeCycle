@@ -8,6 +8,8 @@ import { ComplexFormsGenerationIDRadioButton } from '@/components/ComplexFormsGe
 
 import { ComplexFormsGenerationIDRadioButtonCheckboxesSelect } from '@/components/ComplexFormsGenerationIDRadioButtonCheckboxesSelect/ComplexFormsGenerationIDRadioButtonCheckboxesSelect.jsx'
 
+import { Modal } from '@/components/Modal/Modal.jsx';
+
 import css from "./AppComplexForms.module.css";
 
 
@@ -17,7 +19,8 @@ export class AppComplexForms extends Component {
         formInputLogin: "",
         formInputPassword: "",
         experience: "junior",
-        age: ""
+        age: "",
+        showModal: false
     };
 
     submitForm = (data) => {
@@ -29,7 +32,33 @@ export class AppComplexForms extends Component {
             experience: data.experience,
             age: data.age
         })
-     }
+    }
+
+    toggleModal = () => {
+        // ! при натиску відкриває модалку, при повторному натиску закриває її
+        //     ! змінює значення showModal на протилежне
+
+        //todo var.1
+        // !this.state.showModal
+        //     ? this.setState({
+        //         showModal: true
+        //     })
+        //     : this.setState({
+        //         showModal: false
+        //     })
+
+        //todo var.2
+        // this.setState({
+        //     showModal: !this.state.showModal
+        // })
+
+        //todo var.3
+        //? з деструктурізацією
+        console.log("🌀toggleModal");
+        this.setState(({ showModal }) => ({
+            showModal: !showModal
+        }));
+    }
 
     render() {
 
@@ -37,14 +66,16 @@ export class AppComplexForms extends Component {
             formInputLogin,
             formInputPassword,
             experience,
-            age
+            age,
+            showModal
         } = this.state
 
         console.log("----------------------------------------------");
-        console.log("📗 Значення formInputLogin:", formInputLogin);
-        console.log("📗 Значення formInputPassword:", formInputPassword);
-        console.log("📗 Значення experience:", experience);
-        console.log("📗 Значення age:", age);
+        // console.log("📗 Значення formInputLogin:", formInputLogin);
+        // console.log("📗 Значення formInputPassword:", formInputPassword);
+        // console.log("📗 Значення experience:", experience);
+        // console.log("📗 Значення age:", age);
+        console.log("🌀 Значення showModal:", showModal);
         console.log("______________________________________________");
         return (
             <>
@@ -60,8 +91,34 @@ export class AppComplexForms extends Component {
                 {/* <ComplexFormsGenerationIDRadioButton onSubmit={this.submitForm} /> */}
 
                 {/*//! + 4.4.6.Чекбокси + 4.4.7.Селект */}
-                <ComplexFormsGenerationIDRadioButtonCheckboxesSelect onSubmit={this.submitForm} />
+                {/* <ComplexFormsGenerationIDRadioButtonCheckboxesSelect onSubmit={this.submitForm} /> */}
 
+                {/*//! + 5. Модальне вікно */}
+                {/* //! кнопка повинна керувати відкриттям модалки */}
+                <button
+                    type="button"
+                    onClick={this.toggleModal}
+                >
+                    Відкрити модалку
+                </button>
+                {showModal && <Modal>
+                    <h1>
+                        Це контент модалки як children
+                    </h1>
+                    <p>
+                        Lorem, ipsum dolor sit amet consectetur
+                        adipisicing elit. Omnis consequatur
+                        commodi ad totam doloremque nulla
+                        accusantium maiores eum deserunt
+                        ullam maxime architecto, iure voluptatum,
+                        ipsum laudantium recusandae reprehenderit
+                        corrupti. Molestias?
+                    </p>
+                    <button
+                        type="button"
+                        onClick={this.toggleModal}
+                    >Закрити модалку</button>
+                </Modal>}
             </>
         );
     }
