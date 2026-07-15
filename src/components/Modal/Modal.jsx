@@ -20,6 +20,18 @@ export class Modal extends Component {
         }
     }
 
+    //! Для закриття модаки по кліку в Backdrop
+    handleBackdropClick = event => {
+        console.log('Клікнули в Backdrop');
+        console.log('currentTarget: ', event.currentTarget);
+        console.log('target: ', event.target);
+
+        if (event.currentTarget === event.target) {
+            console.log("Натиснули на backDrop, потрібно закрити модалку");
+             this.props.onClose()
+        }
+
+    }
     componentDidMount() {
         console.log('1️⃣❗️❗️.Modal componentDidMount');
 
@@ -36,7 +48,7 @@ export class Modal extends Component {
     componentWillUnmount() {
         console.log('3️⃣❗️❗️.Modal componentWillUnmount');
 
-        window.removeEventListener('keydown',this.handleKeyDownESC)
+        window.removeEventListener('keydown', this.handleKeyDownESC)
     };
 
 
@@ -53,7 +65,7 @@ export class Modal extends Component {
 
         //* Для модального вікна з createPortal
         return createPortal(
-            <div className={css.modalBackdrop} >
+            <div className={css.modalBackdrop} onClick={this.handleBackdropClick}>
                 <div className={css.modalContent} >{this.props.children}</div>
             </div>,
             modalRoot,
