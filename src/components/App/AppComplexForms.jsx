@@ -113,7 +113,7 @@ export class AppComplexForms extends Component {
                 >
                     Відкрити модалку
                 </button>
-                {showModal && <Modal>
+                {showModal && <Modal onClose={this.toggleModal}>
                     <h1>
                         Це контент модалки як children
                     </h1>
