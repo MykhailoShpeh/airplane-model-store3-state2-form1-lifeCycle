@@ -12,19 +12,20 @@ export class Modal extends Component {
     state = {
     }
 
+    handleKeyDownESC = event => {
+        console.log("event.code:", event.code);
+        if (event.code === "Escape") {
+            console.log("Натиснули ❌ESC, потрібно закрити модалку");
+            this.props.onClose()
+        }
+    }
+
     componentDidMount() {
         console.log('1️⃣❗️❗️.Modal componentDidMount');
 
         window.addEventListener(
             'keydown',
-             event => {
-            console.log("event.code:", event.code);
-            if (event.code === "Escape") {
-                console.log("Натиснули ❌ESC, потрібно закрити модалку");
-                this.props.onClose()
-            }
-            
-        }
+            this.handleKeyDownESC
         )
     }
 
@@ -34,6 +35,8 @@ export class Modal extends Component {
 
     componentWillUnmount() {
         console.log('3️⃣❗️❗️.Modal componentWillUnmount');
+
+        window.removeEventListener('keydown',this.handleKeyDownESC)
     };
 
 
