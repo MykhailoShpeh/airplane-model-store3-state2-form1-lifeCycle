@@ -20,6 +20,7 @@ export class Modal extends Component {
              event => {
             console.log("event.code:", event.code);
             if (event.code === "Escape") {
+                console.log("Натиснули ❌ESC, потрібно закрити модалку");
                 this.props.onClose()
             }
             
