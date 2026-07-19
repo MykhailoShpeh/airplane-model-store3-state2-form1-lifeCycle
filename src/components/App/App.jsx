@@ -6,9 +6,11 @@ import planes from '@/json/planes.json';
 import helicopters from '@/json/helicopters.json';
 import aircrafts from '@/json/aircrafts.json';
 import { PlanesList } from '@/components/PlanesList/PlanesList.jsx';
-import { ScaleSelection} from '@/components/ScaleSelection/ScaleSelection.jsx';
+import { ScaleSelection } from '@/components/ScaleSelection/ScaleSelection.jsx';
 import { Filter } from '@/components/Filter/Filter.jsx';
 import { Sorter } from '@/components/Sorter/Sorter.jsx';
+import { ModalRegistrationIdentification } from '@/components/ModalRegistrationIdentification/ModalRegistrationIdentification.jsx';
+import { FormRegistration} from '@/components/FormRegistration/FormRegistration.jsx'
 import debounce from "lodash.debounce";
 // import { updateSelectedModels } from '@/utils/';
 //! Приклад початкового сортування на ім'я (за полем name.brief)
@@ -56,6 +58,7 @@ export class App extends Component {
     radioButtonValue: "brief", //! значення параметра для пошуку/фільтрації радіо-кнопки
     inputSearchPlaceholder: "Введіть назву ЛА", //! значення placeholder для inputSearch
     modelsSelectedScale: aircrafts, //! масив моделей обраного масштабу
+    showModal: true
   }
 
   //! 2.localStorage - Створення запису в localStorage під час першого запуску якщо його немає
@@ -491,13 +494,13 @@ export class App extends Component {
     console.log("Сюди приходить масив моделей обраного масштабу:", modelsScale);
     //todo  при виборі масштабу потрібно аналізувати стан фільтрів та згідно з обраного фільтру брати необхідний масив для подальшої роботи
 
-    
+
 
     let result = [];
 
     switch (this.state.activeButton) {
       case "allButton":
-          result = modelsScale
+        result = modelsScale
         break;
 
       case "planesButton":
@@ -511,14 +514,25 @@ export class App extends Component {
       case "helicoptersButton":
         result = modelsScale.filter(item => item.aircraftType === "helicopter")
         break;
-      }
+    }
 
-      this.setState({
+    this.setState({
       modelsSelectedScale: modelsScale,
       aircraftArray: result,
       aircraftsArrAfterFiltration: result,
       searchInputValue: ""
     })
+  }
+
+  toggleModal = () => {
+    console.log("🌀toggleModal");
+    this.setState(({ showModal }) => ({
+      showModal: !showModal
+    }));
+  }
+
+  submitFormRegistration = (user) => {
+    console.log("🧑‍⚕️user: ", user)
   }
 
   render() {
@@ -537,7 +551,8 @@ export class App extends Component {
       radioButtonValue,
       inputSearchPlaceholder,
       selectedModelsArrAfterFiltration,
-      modelsSelectedScale
+      modelsSelectedScale,
+      showModal
     } = this.state;
 
     //! Формуємо(оновлюємо) масив обраних моделей [selectedModels]
@@ -570,6 +585,7 @@ export class App extends Component {
     console.log("inputSearchPlaceholder: ", inputSearchPlaceholder);
     console.log("selectedModelsArrAfterFiltration: ", selectedModelsArrAfterFiltration);
     console.log("🟢modelsSelectedScale: ", modelsSelectedScale);
+    console.log("showModal: ", showModal);
     console.log("------------------------------------------------------------");
 
     this.test('Виклик тестової функції')
@@ -604,8 +620,13 @@ export class App extends Component {
                 </button>
         
                 </div> */}
+
+        {showModal && <ModalRegistrationIdentification onClose={this.toggleModal}>
+          <FormRegistration onSubmit={this.submitFormRegistration}/>
+        </ModalRegistrationIdentification>}
+
         <ScaleSelection
-        onGetModelsSelectedScale={this.getModelsSelectedScale}
+          onGetModelsSelectedScale={this.getModelsSelectedScale}
         />
         <Filter
           onAll={this.allFiltration}
@@ -659,9 +680,9 @@ export class App extends Component {
             //   ? selectedModels.sort((firstModel, secondModel) => firstModel.name.brief.localeCompare(secondModel.name.brief))
             //     : aircraftArray.sort((firstModel, secondModel) => firstModel.name.brief.localeCompare(secondModel.name.brief))}
 
-            items={isCartButton 
+            items={isCartButton
               ? selectedModels
-               : aircraftArray}
+              : aircraftArray}
             onActiveId={this.getActiveId}
             indicesSelectedModels={indicesSelectedModels}
             totalModels={totalModels}

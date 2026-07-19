@@ -21,14 +21,14 @@ import {
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter basename="/airplane-model-store3-state2-form1-lifeCycle">
-      {/* <App /> */}
+      <App />
       {/* <AppColorBox />  */}
       {/* <AppSearchDebounce /> */}
       {/* <AppSearchDebounceTextBacklight /> */}
       {/* <AppUncontrolledElementsForm onSubmit={values => console.log(values)} /> */}
       {/* <AppControlledElementsForm /> */}
       {/* <AppComplexForms onSubmit={values => console.log(values)}/> */}
-      <AppComplexForms />
+      {/* <AppComplexForms /> */}
     </BrowserRouter>
   </StrictMode >
 );

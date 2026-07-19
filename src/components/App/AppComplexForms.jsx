@@ -109,7 +109,7 @@ export class AppComplexForms extends Component {
 
                 {/*//! + 5. Модальне вікно */}
                 {/* //! кнопка повинна керувати відкриттям модалки */}
-                {/* <button
+                <button
                     type="button"
                     onClick={this.toggleModal}
                 >
@@ -133,17 +133,18 @@ export class AppComplexForms extends Component {
                         onClick={this.toggleModal}
                     >Закрити модалку</button>
                 </Modal>}
-                <ColorBoxLifeCycle colorBoxes={colorBoxOptions}/> */}
+
+                {/* <ColorBoxLifeCycle colorBoxes={colorBoxOptions}/> */}
 
                 {/*//! Таймер */}
-                <button
+                {/* <button
                     type="button"
                     onClick={this.toggleModal}
                 >
                     Старт/Стоп таймер
                 </button>
 
-                {showModal && <Clock />}
+                {showModal && <Clock />} */}
             </>
         );
     }
