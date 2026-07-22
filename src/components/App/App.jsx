@@ -10,9 +10,9 @@ import { ScaleSelection } from '@/components/ScaleSelection/ScaleSelection.jsx';
 import { Filter } from '@/components/Filter/Filter.jsx';
 import { Sorter } from '@/components/Sorter/Sorter.jsx';
 import { ModalRegistrationIdentification } from '@/components/ModalRegistrationIdentification/ModalRegistrationIdentification.jsx';
-import { FormRegistration} from '@/components/FormRegistration/FormRegistration.jsx'
-import {FormIdentification} from '@/components/FormIdentification/FormIdentification.jsx'
-import {FormChoiceRegistrationOrIdentification} from '@/components/FormChoiceRegistrationOrIdentification/FormChoiceRegistrationOrIdentification.jsx'
+import { FormRegistration } from '@/components/FormRegistration/FormRegistration.jsx'
+import { FormIdentification } from '@/components/FormIdentification/FormIdentification.jsx'
+import { FormChoiceRegistrationOrIdentification } from '@/components/FormChoiceRegistrationOrIdentification/FormChoiceRegistrationOrIdentification.jsx'
 import debounce from "lodash.debounce";
 // import { updateSelectedModels } from '@/utils/';
 //! Приклад початкового сортування на ім'я (за полем name.brief)
@@ -60,7 +60,8 @@ export class App extends Component {
     radioButtonValue: "brief", //! значення параметра для пошуку/фільтрації радіо-кнопки
     inputSearchPlaceholder: "Введіть назву ЛА", //! значення placeholder для inputSearch
     modelsSelectedScale: aircrafts, //! масив моделей обраного масштабу
-    showModal: true
+    showModal: true,
+    modalType: "",  //! 🧾 індикатор типу модального вікна
   }
 
   //! 2.localStorage - Створення запису в localStorage під час першого запуску якщо його немає
@@ -526,10 +527,15 @@ export class App extends Component {
     })
   }
 
-  toggleModal = () => {
-    console.log("🌀toggleModal");
+  toggleModal = (event) => {
+    console.log("🌀toggleModal", event);
+    // console.log("🌀toggleModal", event.currentTarget.textContent);
+
+    const modalType = event ? event.currentTarget.textContent : undefined
+
     this.setState(({ showModal }) => ({
-      showModal: !showModal
+      showModal: !showModal,
+      modalType
     }));
   }
 
@@ -558,7 +564,8 @@ export class App extends Component {
       inputSearchPlaceholder,
       selectedModelsArrAfterFiltration,
       modelsSelectedScale,
-      showModal
+      showModal,
+      modalType
     } = this.state;
 
     //! Формуємо(оновлюємо) масив обраних моделей [selectedModels]
@@ -592,6 +599,7 @@ export class App extends Component {
     console.log("selectedModelsArrAfterFiltration: ", selectedModelsArrAfterFiltration);
     console.log("🟢modelsSelectedScale: ", modelsSelectedScale);
     console.log("showModal: ", showModal);
+    console.log("modalType: ", modalType);
     console.log("------------------------------------------------------------");
 
     this.test('Виклик тестової функції')
@@ -628,7 +636,7 @@ export class App extends Component {
                 </div> */}
 
         {showModal && <ModalRegistrationIdentification onClose={this.toggleModal}>
-          <FormChoiceRegistrationOrIdentification />
+          <FormChoiceRegistrationOrIdentification onClose={this.toggleModal} />
           {/* <FormRegistration onSubmit={this.submitFormRegistration}/> */}
           {/* <FormIdentification onAccountLogin={this.accountLogin} /> */}
         </ModalRegistrationIdentification>}
