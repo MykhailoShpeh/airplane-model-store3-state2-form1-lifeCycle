@@ -11,6 +11,8 @@ import { Filter } from '@/components/Filter/Filter.jsx';
 import { Sorter } from '@/components/Sorter/Sorter.jsx';
 import { ModalRegistrationIdentification } from '@/components/ModalRegistrationIdentification/ModalRegistrationIdentification.jsx';
 import { FormRegistration} from '@/components/FormRegistration/FormRegistration.jsx'
+import {FormIdentification} from '@/components/FormIdentification/FormIdentification.jsx'
+import {FormChoiceRegistrationOrIdentification} from '@/components/FormChoiceRegistrationOrIdentification/FormChoiceRegistrationOrIdentification.jsx'
 import debounce from "lodash.debounce";
 // import { updateSelectedModels } from '@/utils/';
 //! Приклад початкового сортування на ім'я (за полем name.brief)
@@ -535,6 +537,10 @@ export class App extends Component {
     console.log("🧑‍⚕️user: ", user)
   }
 
+  accountLogin = (user) => {
+    console.log("🧑‍⚕️user: ", user)
+  }
+
   render() {
 
     const {
@@ -622,7 +628,9 @@ export class App extends Component {
                 </div> */}
 
         {showModal && <ModalRegistrationIdentification onClose={this.toggleModal}>
-          <FormRegistration onSubmit={this.submitFormRegistration}/>
+          <FormChoiceRegistrationOrIdentification />
+          {/* <FormRegistration onSubmit={this.submitFormRegistration}/> */}
+          {/* <FormIdentification onAccountLogin={this.accountLogin} /> */}
         </ModalRegistrationIdentification>}
 
         <ScaleSelection
