@@ -29,9 +29,9 @@ export class FormRegistration extends Component {
         const { loginInputValue, passwordInputValue } = this.state;
         console.log(`Login: ${loginInputValue}, Password: ${passwordInputValue}`);
         this.props.onSubmit({ ...this.state });
-
         //! очищуємо поля всіх інпутів
         this.reset()
+        this.props.onClose()
     }
 
     handleChange = event => {

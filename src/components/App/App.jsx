@@ -62,6 +62,7 @@ export class App extends Component {
     modelsSelectedScale: aircrafts, //! масив моделей обраного масштабу
     showModal: true,
     modalType: "",  //! 🧾 індикатор типу модального вікна
+    users: []
   }
 
   //! 2.localStorage - Створення запису в localStorage під час першого запуску якщо його немає
@@ -560,6 +561,10 @@ export class App extends Component {
 
   submitFormRegistration = (user) => {
     console.log("🧑‍⚕️user: ", user)
+    this.setState(prevState => ({
+      users: [...prevState.users, user],
+      showModal: false
+    }))
   }
 
   accountLogin = (user) => {
@@ -584,7 +589,8 @@ export class App extends Component {
       selectedModelsArrAfterFiltration,
       modelsSelectedScale,
       showModal,
-      modalType
+      modalType,
+      users
     } = this.state;
 
     //! Формуємо(оновлюємо) масив обраних моделей [selectedModels]
@@ -619,6 +625,7 @@ export class App extends Component {
     console.log("🟢modelsSelectedScale: ", modelsSelectedScale);
     console.log("showModal: ", showModal);
     console.log("modalType: ", modalType);
+    console.log("users: ", users);
     console.log("------------------------------------------------------------");
 
     this.test('Виклик тестової функції')
