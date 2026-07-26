@@ -533,10 +533,29 @@ export class App extends Component {
 
     const modalType = event ? event.currentTarget.textContent : undefined
 
-    this.setState(({ showModal }) => ({
-      showModal: !showModal,
-      modalType
-    }));
+    console.log("modalType: ", modalType)
+
+    // this.setState({
+    //   modalType
+    // })
+
+    //! якщо modalType = Registration або Login, то нам потрібно:
+    //!  1. Залишити модалку відкритою
+    //! 2. this.state.modalType = modalType
+    //! якщо modalType != Registration або Login, то нам потрібно:
+    //! 1. Закрити модалу 
+    //! 2. this.state.modalType = ""
+
+    modalType === "Registration" || modalType === "Login"
+      ? this.setState({
+        showModal: true,
+        modalType
+      })
+      : this.setState(({ showModal }) => ({
+        showModal: !showModal,
+        modalType: ""
+      }))
+
   }
 
   submitFormRegistration = (user) => {
@@ -635,10 +654,20 @@ export class App extends Component {
         
                 </div> */}
 
-        {showModal && <ModalRegistrationIdentification onClose={this.toggleModal}>
-          <FormChoiceRegistrationOrIdentification onClose={this.toggleModal} />
-          {/* <FormRegistration onSubmit={this.submitFormRegistration}/> */}
-          {/* <FormIdentification onAccountLogin={this.accountLogin} /> */}
+        {showModal && <ModalRegistrationIdentification
+          onClose={this.toggleModal}
+        >
+          {!modalType && <FormChoiceRegistrationOrIdentification
+            onClose={this.toggleModal}
+          />}
+          {modalType === 'Registration' && <FormRegistration
+            onSubmit={this.submitFormRegistration}
+            onClose={this.toggleModal}
+          />}
+          {modalType === 'Login' && <FormIdentification
+            onAccountLogin={this.accountLogin}
+            onClose={this.toggleModal}
+          />}
         </ModalRegistrationIdentification>}
 
         <ScaleSelection

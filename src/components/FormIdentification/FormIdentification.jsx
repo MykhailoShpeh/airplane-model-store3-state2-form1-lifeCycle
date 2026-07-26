@@ -64,9 +64,14 @@ export class FormIdentification extends Component {
             userPassword,
         } = this.state
 
+         const {
+            onClose
+        } = this.props
+
         console.log("------------STATE FormIdentification------------");
         console.log("userEmail: ", userEmail);
         console.log("userPassword: ", userPassword);
+         console.log("onClose: ", onClose);
         console.log("------------------------------------------------------------");
 
 
@@ -105,7 +110,7 @@ export class FormIdentification extends Component {
                     <button
                         className={css.loginButton}
                         type="button"
-                    // onClick={this.props.onClose}
+                    onClick={onClose}
                     >
                         Cancel
                     </button>

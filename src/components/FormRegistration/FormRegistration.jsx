@@ -64,23 +64,28 @@ export class FormRegistration extends Component {
 
     render() {
 
-         const {
+        const {
             userName,
             userEmail,
             userPassword,
             userExperience,
             userAge,
             userLicence,
-         } = this.state
+        } = this.state
 
-    console.log("------------STATE FormRegistration------------");
-                console.log("userName: ", userName);
-                console.log("userEmail: ", userEmail);
-                console.log("userPassword: ", userPassword);
-                console.log("userExperience: ", userExperience);
-                console.log("userAge: ", userAge);
-                console.log("userLicence: ", userLicence);
-    console.log("------------------------------------------------------------");
+        const {
+            onClose
+        } = this.props
+
+        console.log("------------STATE FormRegistration------------");
+        console.log("userName: ", userName);
+        console.log("userEmail: ", userEmail);
+        console.log("userPassword: ", userPassword);
+        console.log("userExperience: ", userExperience);
+        console.log("userAge: ", userAge);
+        console.log("userLicence: ", userLicence);
+        console.log("onClose: ", onClose);
+        console.log("------------------------------------------------------------");
 
 
         return (
@@ -180,15 +185,15 @@ export class FormRegistration extends Component {
                         <input
                             type="checkbox"
                             name="userLicence"
-                        checked={userLicence}
-                        onChange={this.handleChangeCheckbox}
+                            checked={userLicence}
+                            onChange={this.handleChangeCheckbox}
                         />
                     </label>
 
                     <button
                         className={css.loginButton}
                         type="submit"
-                    disabled={!userLicence} //! блокування кнопки чекбоксом
+                        disabled={!userLicence} //! блокування кнопки чекбоксом
                     >
                         Submit
                     </button>
@@ -197,7 +202,7 @@ export class FormRegistration extends Component {
                     <button
                         className={css.loginButton}
                         type="button"
-                    // onClick={this.props.onClose}
+                        onClick={onClose}
                     >
                         Cancel
                     </button>

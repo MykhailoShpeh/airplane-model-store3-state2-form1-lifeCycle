@@ -23,7 +23,6 @@ export function FormChoiceRegistrationOrIdentification({
                     className={`${css.buttonRegistrationIdentification} ${css.buttonRegistration}`}
                     // onClick={(event) => onClose(event.currentTarget.textContent)}
                     onClick={onClose}
-
                 >
                     Registration
                 </button>
