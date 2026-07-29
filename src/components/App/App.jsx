@@ -63,7 +63,7 @@ export class App extends Component {
     modelsSelectedScale: aircrafts, //! масив моделей обраного масштабу
     showModal: true,
     modalType: "",  //! 🧾 індикатор типу модального вікна
-    users: []
+    users: JSON.parse(localStorage.getItem("users")) || []
   }
 
   //! 2.localStorage - Створення запису в localStorage під час першого запуску якщо його немає
@@ -71,6 +71,11 @@ export class App extends Component {
     const saved = localStorage.getItem("selectedModelsId");
     if (!saved) {
       localStorage.setItem("selectedModelsId", JSON.stringify([]));
+    }
+
+    const savedUSers = localStorage.getItem("users");
+    if (!savedUSers) {
+      localStorage.setItem("users", JSON.stringify([]));
     }
   };
 
@@ -80,6 +85,12 @@ export class App extends Component {
       localStorage.setItem(
         "selectedModelsId",
         JSON.stringify(this.state.indicesSelectedModels)
+      );
+    }
+     if (prevState.users !== this.state.users) {
+      localStorage.setItem(
+        "users",
+        JSON.stringify(this.state.users)
       );
     }
   };

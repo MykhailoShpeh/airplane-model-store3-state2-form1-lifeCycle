@@ -26,9 +26,18 @@ export class FormRegistration extends Component {
     handleSubmit = event => {
         event.preventDefault();
         console.log("Підтвердження форми");
-        const { loginInputValue, passwordInputValue } = this.state;
+        const { loginInputValue, passwordInputValue, userName, userEmail, userPassword, userExperience, userAge, isActive = false, indicesSelectedModels = []} = this.state;
         console.log(`Login: ${loginInputValue}, Password: ${passwordInputValue}`);
-        this.props.onSubmit({ ...this.state });
+        // this.props.onSubmit({ ...this.state });
+        this.props.onSubmit({
+            userName,
+            userEmail,
+            userPassword,
+            userExperience,
+            userAge,
+            isActive,
+            indicesSelectedModels
+        });
         //! очищуємо поля всіх інпутів
         this.reset()
         // this.props.onClose()
