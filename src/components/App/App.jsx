@@ -564,7 +564,8 @@ export class App extends Component {
     console.log("🧑‍⚕️user: ", user)
     this.setState(prevState => ({
       users: [...prevState.users, user],
-      showModal: false
+      // showModal: true,
+      modalType: 'Login'
     }))
   }
 

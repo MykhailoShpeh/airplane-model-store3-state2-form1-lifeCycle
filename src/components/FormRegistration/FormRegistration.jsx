@@ -31,7 +31,7 @@ export class FormRegistration extends Component {
         this.props.onSubmit({ ...this.state });
         //! очищуємо поля всіх інпутів
         this.reset()
-        this.props.onClose()
+        // this.props.onClose()
     }
 
     handleChange = event => {
