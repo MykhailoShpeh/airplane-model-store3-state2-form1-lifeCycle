@@ -13,6 +13,7 @@ import { ModalRegistrationIdentification } from '@/components/ModalRegistrationI
 import { FormRegistration } from '@/components/FormRegistration/FormRegistration.jsx'
 import { FormIdentification } from '@/components/FormIdentification/FormIdentification.jsx'
 import { FormChoiceRegistrationOrIdentification } from '@/components/FormChoiceRegistrationOrIdentification/FormChoiceRegistrationOrIdentification.jsx'
+import { RegistrationIdentification } from '@/components/RegistrationIdentification/RegistrationIdentification.jsx';
 import debounce from "lodash.debounce";
 // import { updateSelectedModels } from '@/utils/';
 //! Приклад початкового сортування на ім'я (за полем name.brief)
@@ -660,6 +661,9 @@ export class App extends Component {
                 </button>
         
                 </div> */}
+
+        <RegistrationIdentification
+          onClose={this.toggleModal} />
 
         {showModal && <ModalRegistrationIdentification
           onClose={this.toggleModal}
