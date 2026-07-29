@@ -64,56 +64,59 @@ export class FormIdentification extends Component {
             userPassword,
         } = this.state
 
-         const {
+        const {
             onClose
         } = this.props
 
         console.log("------------STATE FormIdentification------------");
         console.log("userEmail: ", userEmail);
         console.log("userPassword: ", userPassword);
-         console.log("onClose: ", onClose);
+        console.log("onClose: ", onClose);
         console.log("------------------------------------------------------------");
 
 
         return (
             <div>
-                <h2>Ідентифікація/Аутентифікація</h2>
+                <h2 className={css.titleFormIdentification}>Ідентифікація/Аутентифікація</h2>
                 <form
-                    className={css.loginForm}
+                    className={css.formIdentification}
                     onSubmit={this.handleSubmit}
                 >
-                    <label className={css.loginFormLabel}>
+                    <label className={css.labelFormIdentification}>
                         E-mail:
                         <input
-                            className={css.loginFormInput}
+                            className={css.inputFormIdentification}
                             type="email"
                             name="userEmail"
                             value={userEmail}
                             onChange={this.handleChange}
                         />
                     </label>
-                    <label className={css.loginFormLabel}>
+                    <label className={css.labelFormIdentification}>
                         Пароль:
                         <input
-                            className={css.loginFormInput}
+                            className={css.inputFormIdentification}
                             type="password"
                             name="userPassword"
                             value={userPassword}
                             onChange={this.handleChange}
                         />
                     </label>
+                    <div className={css.buttonBoxFormIdentification}>
                     <button
-                    type="submit"
+                        className={`${css.buttonFormIdentification} ${css.loginButton}`}
+                        type="submit"
                     >
                         Login
                     </button>
                     <button
-                        className={css.loginButton}
+                          className={`${css.buttonFormIdentification} ${css.cancelButton}`}
                         type="button"
-                    onClick={onClose}
+                        onClick={onClose}
                     >
                         Cancel
                     </button>
+                    </div>
                 </form>
             </div>
         )
