@@ -606,7 +606,7 @@ export class App extends Component {
     //todo var.2
     this.setState(({ showModal }) => ({
       showModal: !showModal,
-
+      users,
     }))
   }
 
