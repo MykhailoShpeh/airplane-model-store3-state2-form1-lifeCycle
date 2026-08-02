@@ -583,6 +583,21 @@ export class App extends Component {
   accountLogin = (user) => {
     console.log("🧑‍⚕️user: ", user)
 
+    console.log("🙆‍♂️Вхід в обліковий запис:", user.userEmail); //
+    //! 1. Забираємо users з localStorage
+    const users = JSON.parse(localStorage.getItem('users'));
+    console.log("users: ", users)
+    const activeUser = users.find(user => user.userEmail === user.userEmail)
+    console.log("❗️🗣 Активний (авторизований) користувач__accountLogin:", activeUser); //!
+
+    activeUser.isActive = true
+
+    localStorage.setItem(
+      "users",
+      JSON.stringify(users)
+    );
+
+    console.log("users after: ", users)
     //todo var.1
     // this.setState({
     //   showModal: false
@@ -590,8 +605,9 @@ export class App extends Component {
 
     //todo var.2
     this.setState(({ showModal }) => ({
-        showModal: !showModal
-      }))
+      showModal: !showModal,
+
+    }))
   }
 
   render() {
