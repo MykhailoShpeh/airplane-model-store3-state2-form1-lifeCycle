@@ -87,7 +87,7 @@ export class App extends Component {
         JSON.stringify(this.state.indicesSelectedModels)
       );
     }
-     if (prevState.users !== this.state.users) {
+    if (prevState.users !== this.state.users) {
       localStorage.setItem(
         "users",
         JSON.stringify(this.state.users)
@@ -575,13 +575,23 @@ export class App extends Component {
     console.log("🧑‍⚕️user: ", user)
     this.setState(prevState => ({
       users: [...prevState.users, user],
-      // showModal: true,
+
       modalType: 'Login'
     }))
   }
 
   accountLogin = (user) => {
     console.log("🧑‍⚕️user: ", user)
+
+    //todo var.1
+    // this.setState({
+    //   showModal: false
+    // })
+
+    //todo var.2
+    this.setState(({ showModal }) => ({
+        showModal: !showModal
+      }))
   }
 
   render() {

@@ -21,12 +21,36 @@ export class FormIdentification extends Component {
     handleSubmit = event => {
         event.preventDefault();
         console.log("Підтвердження форми");
-        const { loginInputValue, passwordInputValue } = this.state;
-        console.log(`Login: ${loginInputValue}, Password: ${passwordInputValue}`);
-        this.props.onAccountLogin({ ...this.state });
+        const { userEmail, userPassword } = this.state;
+        console.log(`Login: ${userEmail}, Password: ${userPassword}`);
+        //! Перевірка на наявність userEmail (Ідентифікація)
+        //! 1. Забираємо users з localStorage
+        const users = JSON.parse(localStorage.getItem('users'));
+        console.log("users: ", users)
+        //! 2. Створюємо змінну, яка дасть відповідь чи є цей користувач
+        const isEmail = users.some(user => user.userEmail === userEmail)
+        console.log("📩Такий Email є в db?:", isEmail);
+        if (!isEmail) {
+            alert(`Користувач з таким E-mail: ${userEmail} відсутній☹️`);
+            console.log(`Користувач з таким E-mail: ${userEmail} відсутній☹️`);
+            return
+        }
 
+        //! Перевірка Пароля (Аутентифікація)
+        const user = users.find(user => user.userEmail === userEmail)
+        console.log("user: ", user)
+        if (user.userPassword !== userPassword) {
+            alert(`Введений неправильний пароль☹️☹️`);
+            console.log(`Введений неправильний пароль☹️☹️`);
+            return
+        }
+        alert(`Вітаю Вас, ${user.userName} 😊 \nІдентифікація/Аутентифікація пройдена ✅`);
+
+        this.props.onAccountLogin({ ...this.state });
         //! очищуємо поля всіх інпутів
         this.reset()
+
+        // this.props.onClose
     }
 
     handleChange = event => {
@@ -76,7 +100,7 @@ export class FormIdentification extends Component {
 
 
         return (
-            <div>
+            <>
                 <h2 className={css.titleFormIdentification}>Ідентифікація/Аутентифікація</h2>
                 <form
                     className={css.formIdentification}
@@ -103,22 +127,22 @@ export class FormIdentification extends Component {
                         />
                     </label>
                     <div className={css.buttonBoxFormIdentification}>
-                    <button
-                        className={`${css.buttonFormIdentification} ${css.loginButton}`}
-                        type="submit"
-                    >
-                        Login
-                    </button>
-                    <button
-                          className={`${css.buttonFormIdentification} ${css.cancelButton}`}
-                        type="button"
-                        onClick={onClose}
-                    >
-                        Cancel
-                    </button>
+                        <button
+                            className={`${css.buttonFormIdentification} ${css.loginButton}`}
+                            type="submit"
+                        >
+                            Login
+                        </button>
+                        <button
+                            className={`${css.buttonFormIdentification} ${css.cancelButton}`}
+                            type="button"
+                            onClick={onClose}
+                        >
+                            Cancel
+                        </button>
                     </div>
                 </form>
-            </div>
+            </>
         )
     }
 }
