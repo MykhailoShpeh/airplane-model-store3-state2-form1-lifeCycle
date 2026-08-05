@@ -15,6 +15,7 @@ import { FormIdentification } from '@/components/FormIdentification/FormIdentifi
 import { FormChoiceRegistrationOrIdentification } from '@/components/FormChoiceRegistrationOrIdentification/FormChoiceRegistrationOrIdentification.jsx'
 import { RegistrationIdentification } from '@/components/RegistrationIdentification/RegistrationIdentification.jsx';
 import debounce from "lodash.debounce";
+import { number } from 'prop-types';
 // import { updateSelectedModels } from '@/utils/';
 //! Приклад початкового сортування на ім'я (за полем name.brief)
 aircrafts.sort((firstModel, secondModel) => firstModel.name.brief.localeCompare(secondModel.name.brief));
@@ -61,9 +62,12 @@ export class App extends Component {
     radioButtonValue: "brief", //! значення параметра для пошуку/фільтрації радіо-кнопки
     inputSearchPlaceholder: "Введіть назву ЛА", //! значення placeholder для inputSearch
     modelsSelectedScale: aircrafts, //! масив моделей обраного масштабу
-    showModal: true,
+
+    showModal: true, 
     modalType: "",  //! 🧾 індикатор типу модального вікна
-    users: JSON.parse(localStorage.getItem("users")) || []
+    users: JSON.parse(localStorage.getItem("users")) || [],
+    activeUser: null, //! 🗣 активний (авторизований) користувач
+     activeUserId: null, //! #️⃣🗣 індекс Активного (авторизованого) користувача
   }
 
   //! 2.localStorage - Створення запису в localStorage під час першого запуску якщо його немає
@@ -77,6 +81,19 @@ export class App extends Component {
     if (!savedUSers) {
       localStorage.setItem("users", JSON.stringify([]));
     }
+
+    // const activeUser = JSON.parse(localStorage.getItem("users")).find(user => user.isActive === true)
+
+    // console.log("activeUser: ", activeUser)
+
+    // const activeUserId = JSON.parse(localStorage.getItem("users")).findIndex(user => user.isActive === true)
+
+    // console.log("activeUserId: ", activeUserId)
+
+    // this.setState({
+    //   activeUser,
+    //   activeUserId
+    // })
   };
 
   //! 3.localStorage - Оновлення(синхронізація) localStorage при кожній зміні indicesSelectedModels
@@ -592,9 +609,12 @@ export class App extends Component {
 
     activeUser.isActive = true
 
+    const activeUserId = JSON.parse(localStorage.getItem("users")).findIndex(user => user.isActive === true)
+
     localStorage.setItem(
       "users",
       JSON.stringify(users)
+      
     );
 
     console.log("users after: ", users)
@@ -607,7 +627,27 @@ export class App extends Component {
     this.setState(({ showModal }) => ({
       showModal: !showModal,
       users,
+      activeUser,
+      activeUserId
     }))
+  }
+
+  signOut = () => {
+console.log("⬇️Sign Out");
+
+const users = JSON.parse(localStorage.getItem("users"))
+
+console.log("users ДО: ", users);
+
+users[this.state.activeUserId].isActive = false
+
+console.log("users Після: ", users);
+
+    this.setState({
+      users,
+      activeUser: null,
+      activeUserId: null
+    })
   }
 
   render() {
@@ -629,7 +669,9 @@ export class App extends Component {
       modelsSelectedScale,
       showModal,
       modalType,
-      users
+      users,
+      activeUser,
+      activeUserId
     } = this.state;
 
     //! Формуємо(оновлюємо) масив обраних моделей [selectedModels]
@@ -665,6 +707,8 @@ export class App extends Component {
     console.log("showModal: ", showModal);
     console.log("modalType: ", modalType);
     console.log("users: ", users);
+    console.log("🗣 Активний (авторизований) користувач:", activeUser);
+    console.log("#️⃣🗣 Індекс Активного(авторизованого) користувача", activeUserId);
     console.log("------------------------------------------------------------");
 
     this.test('Виклик тестової функції')
@@ -701,7 +745,10 @@ export class App extends Component {
                 </div> */}
 
         <RegistrationIdentification
-          onClose={this.toggleModal} />
+          onClose={this.toggleModal}
+          activeUser={activeUser}
+          onSignOut={this.signOut}
+          />
 
         {showModal && <ModalRegistrationIdentification
           onClose={this.toggleModal}
