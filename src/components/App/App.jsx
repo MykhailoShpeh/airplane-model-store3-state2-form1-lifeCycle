@@ -780,6 +780,7 @@ console.log("users Після: ", users);
           //! Візуалізація активної кнопки 
           activeButton={activeButton}
           selectedLength={indicesSelectedModels.length}
+          activeUser={activeUser}
         />
 
         <Sorter

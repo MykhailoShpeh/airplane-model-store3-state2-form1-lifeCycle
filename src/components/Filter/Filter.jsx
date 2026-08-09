@@ -1,7 +1,16 @@
 import css from './Filter.module.css';
 
 
-export function Filter({ onAll, onPlanes, onBiplanes, onHelicopters, onCart, activeButton, selectedLength }) {
+export function Filter({
+    onAll,
+    onPlanes,
+    onBiplanes,
+    onHelicopters,
+    onCart,
+    activeButton,
+    selectedLength,
+    activeUser
+}) {
     // console.log("activeButton", activeButton);
 
     return (
@@ -47,6 +56,7 @@ export function Filter({ onAll, onPlanes, onBiplanes, onHelicopters, onCart, act
             </button>
 
             <button
+            disabled={!activeUser}
                 // className={css.buttonHelicopterFiltration}
                 className={
                     activeButton === "cartButton"
@@ -55,6 +65,7 @@ export function Filter({ onAll, onPlanes, onBiplanes, onHelicopters, onCart, act
                 }
                 type="button"
                 onClick={onCart}
+
             >
                 Кошик
                 &nbsp;

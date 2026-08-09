@@ -78,3 +78,21 @@
 .redBack {
     background-color: red;
 }
+
+/*! Блокування кнопки */
+.button:disabled {
+    color: #c1c1c1;
+    cursor: not-allowed;
+    border-color: #515151;
+    background-color: #808080;
+    text-shadow: none;
+    box-shadow: none;
+}
+.button:disabled .cartSpan {
+    display: none;
+}
+
+.button:disabled:hover {
+    color: #c1c1c1;
+    background-color: #808080;
+}
