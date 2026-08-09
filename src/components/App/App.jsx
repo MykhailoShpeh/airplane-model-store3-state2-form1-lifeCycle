@@ -604,12 +604,12 @@ export class App extends Component {
     //! 1. Забираємо users з localStorage
     const users = JSON.parse(localStorage.getItem('users'));
     console.log("users: ", users)
-    const activeUser = users.find(user => user.userEmail === user.userEmail)
+    const activeUser = users.find(item => item.userEmail === user.userEmail)
     console.log("❗️🗣 Активний (авторизований) користувач__accountLogin:", activeUser); //!
 
     activeUser.isActive = true
 
-    const activeUserId = JSON.parse(localStorage.getItem("users")).findIndex(user => user.isActive === true)
+    const activeUserId = users.findIndex(user => user.isActive === true)
 
     localStorage.setItem(
       "users",
@@ -646,7 +646,9 @@ console.log("users Після: ", users);
     this.setState({
       users,
       activeUser: null,
-      activeUserId: null
+      activeUserId: null,
+      showModal: true,
+      modalType: ""
     })
   }
 
