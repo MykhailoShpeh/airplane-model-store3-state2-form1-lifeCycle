@@ -63,19 +63,19 @@ export class App extends Component {
     inputSearchPlaceholder: "Введіть назву ЛА", //! значення placeholder для inputSearch
     modelsSelectedScale: aircrafts, //! масив моделей обраного масштабу
 
-    showModal: true, 
+    showModal: true,
     modalType: "",  //! 🧾 індикатор типу модального вікна
     users: JSON.parse(localStorage.getItem("users")) || [],
     activeUser: null, //! 🗣 активний (авторизований) користувач
-     activeUserId: null, //! #️⃣🗣 індекс Активного (авторизованого) користувача
+    activeUserId: null, //! #️⃣🗣 індекс Активного (авторизованого) користувача
   }
 
   //! 2.localStorage - Створення запису в localStorage під час першого запуску якщо його немає
   componentDidMount() {
-    const saved = localStorage.getItem("selectedModelsId");
-    if (!saved) {
-      localStorage.setItem("selectedModelsId", JSON.stringify([]));
-    }
+    // const saved = localStorage.getItem("selectedModelsId");
+    // if (!saved) {
+    //   localStorage.setItem("selectedModelsId", JSON.stringify([]));
+    // }
 
     const savedUSers = localStorage.getItem("users");
     if (!savedUSers) {
@@ -611,11 +611,19 @@ export class App extends Component {
 
     const activeUserId = users.findIndex(user => user.isActive === true)
 
+    const selectedModelsId = activeUser.indicesSelectedModels
+
+    console.log("selectedModelsId: ", selectedModelsId)
+
     localStorage.setItem(
       "users",
-      JSON.stringify(users)
-      
+      JSON.stringify(users),
     );
+
+    localStorage.setItem(
+      "selectedModelsId",
+      JSON.stringify(selectedModelsId)
+    )
 
     console.log("users after: ", users)
     //todo var.1
@@ -633,15 +641,17 @@ export class App extends Component {
   }
 
   signOut = () => {
-console.log("⬇️Sign Out");
+    console.log("⬇️Sign Out");
 
-const users = JSON.parse(localStorage.getItem("users"))
+    const users = JSON.parse(localStorage.getItem("users"))
 
-console.log("users ДО: ", users);
+    console.log("users ДО: ", users);
 
-users[this.state.activeUserId].isActive = false
+    users[this.state.activeUserId].isActive = false
 
-console.log("users Після: ", users);
+    console.log("users Після: ", users);
+
+    localStorage.removeItem("selectedModelsId");
 
     this.setState({
       users,
@@ -750,7 +760,7 @@ console.log("users Після: ", users);
           onClose={this.toggleModal}
           activeUser={activeUser}
           onSignOut={this.signOut}
-          />
+        />
 
         {showModal && <ModalRegistrationIdentification
           onClose={this.toggleModal}
