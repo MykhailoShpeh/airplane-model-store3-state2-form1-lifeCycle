@@ -82,18 +82,20 @@ export class App extends Component {
       localStorage.setItem("users", JSON.stringify([]));
     }
 
-    // const activeUser = JSON.parse(localStorage.getItem("users")).find(user => user.isActive === true)
+    const activeUser = JSON.parse(localStorage.getItem("users")).find(user => user.isActive === true)
 
-    // console.log("activeUser: ", activeUser)
+    console.log("activeUser: ", activeUser)
 
-    // const activeUserId = JSON.parse(localStorage.getItem("users")).findIndex(user => user.isActive === true)
+    const activeUserId = JSON.parse(localStorage.getItem("users")).findIndex(user => user.isActive === true)
 
-    // console.log("activeUserId: ", activeUserId)
+    console.log("activeUserId: ", activeUserId)
 
-    // this.setState({
-    //   activeUser,
-    //   activeUserId
-    // })
+    this.setState({
+      activeUser,
+      activeUserId,
+      showModal: activeUser ? false : true
+    })
+
   };
 
   //! 3.localStorage - Оновлення(синхронізація) localStorage при кожній зміні indicesSelectedModels
@@ -636,7 +638,8 @@ export class App extends Component {
       showModal: !showModal,
       users,
       activeUser,
-      activeUserId
+      activeUserId,
+      indicesSelectedModels: selectedModelsId
     }))
   }
 
