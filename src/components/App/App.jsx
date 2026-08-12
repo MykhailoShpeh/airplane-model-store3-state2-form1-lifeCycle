@@ -82,7 +82,11 @@ export class App extends Component {
       localStorage.setItem("users", JSON.stringify([]));
     }
 
-    const activeUser = JSON.parse(localStorage.getItem("users")).find(user => user.isActive === true)
+    //todo якщо users відсутні, то localstorage поверне null,
+    //todo якщо є, (масив users не пустий), то localstorage поверне users
+    //todo якщо є, (масив users пустий), то localstorage поверне пустий масив []
+    
+    const activeUser = JSON.parse(localStorage.getItem("users")).find(user => user.isActive === true) 
 
     console.log("activeUser: ", activeUser)
 
