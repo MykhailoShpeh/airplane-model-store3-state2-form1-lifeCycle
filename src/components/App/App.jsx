@@ -106,6 +106,23 @@ export class App extends Component {
         "selectedModelsId",
         JSON.stringify(this.state.indicesSelectedModels)
       );
+
+      //todo змінити state та localstorage активного користувача, а саме властивість user.indicesSelectedModels
+      const users = JSON.parse(localStorage.getItem("users"))
+
+      users[this.state.activeUserId].indicesSelectedModels = this.state.indicesSelectedModels
+
+      console.log("users - local: ", users)
+
+      localStorage.setItem(
+        "users",
+        JSON.stringify(users)
+      );
+
+      this.setState({
+        users,
+        activeUser: users[this.state.activeUserId]
+      })
     }
     //! Відслідковуємо зміну властивості users
     if (prevState.users !== this.state.users) {
@@ -115,9 +132,11 @@ export class App extends Component {
         JSON.stringify(this.state.users)
       );
 
+      //! перенесено в метод signOut
       this.setState({
-        selectedModels: (JSON.parse(localStorage.getItem("selectedModelsId")) || []).flatMap((item) => aircrafts.filter((el) => item === el.id)),
-        indicesSelectedModels: JSON.parse(localStorage.getItem("selectedModelsId")) || [], //! масив індексів обраних моделей
+      //   selectedModels: (JSON.parse(localStorage.getItem("selectedModelsId")) || []).flatMap((item) => aircrafts.filter((el) => item === el.id)),
+      //   indicesSelectedModels: JSON.parse(localStorage.getItem("selectedModelsId")) || [], //! масив індексів обраних моделей
+        selectedModelsArrAfterFiltration: (JSON.parse(localStorage.getItem("selectedModelsId")) || []).flatMap((item) => aircrafts.filter((el) => item === el.id)), //! дубльоване значення selectedModels після фільтрації
       })
     }
   };
@@ -647,7 +666,8 @@ export class App extends Component {
       users,
       activeUser,
       activeUserId,
-      indicesSelectedModels: selectedModelsId
+      indicesSelectedModels: selectedModelsId,
+      selectedModels: (JSON.parse(localStorage.getItem("selectedModelsId")) || []).flatMap((item) => aircrafts.filter((el) => item === el.id)),
     }))
   }
 
@@ -669,7 +689,10 @@ export class App extends Component {
       activeUser: null,
       activeUserId: null,
       showModal: true,
-      modalType: ""
+      modalType: "",
+      selectedModels: (JSON.parse(localStorage.getItem("selectedModelsId")) || []).flatMap((item) => aircrafts.filter((el) => item === el.id)),
+      indicesSelectedModels: JSON.parse(localStorage.getItem("selectedModelsId")) || [], //! масив індексів обраних моделей
+      // selectedModelsArrAfterFiltration: (JSON.parse(localStorage.getItem("selectedModelsId")) || []).flatMap((item) => aircrafts.filter((el) => item === el.id)), //! дубльоване значення selectedModels після фільтрації
     })
   }
 
