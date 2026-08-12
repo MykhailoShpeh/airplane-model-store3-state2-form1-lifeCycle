@@ -100,17 +100,25 @@ export class App extends Component {
 
   //! 3.localStorage - Оновлення(синхронізація) localStorage при кожній зміні indicesSelectedModels
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.indicesSelectedModels !== this.state.indicesSelectedModels) {
+    //! Відслідковуємо зміну властивості indicesSelectedModels
+    if (this.state.activeUser && (prevState.indicesSelectedModels !== this.state.indicesSelectedModels)) {
       localStorage.setItem(
         "selectedModelsId",
         JSON.stringify(this.state.indicesSelectedModels)
       );
     }
+    //! Відслідковуємо зміну властивості users
     if (prevState.users !== this.state.users) {
+      console.log("Властивість users змінилася")
       localStorage.setItem(
         "users",
         JSON.stringify(this.state.users)
       );
+
+      this.setState({
+        selectedModels: (JSON.parse(localStorage.getItem("selectedModelsId")) || []).flatMap((item) => aircrafts.filter((el) => item === el.id)),
+        indicesSelectedModels: JSON.parse(localStorage.getItem("selectedModelsId")) || [], //! масив індексів обраних моделей
+      })
     }
   };
 
