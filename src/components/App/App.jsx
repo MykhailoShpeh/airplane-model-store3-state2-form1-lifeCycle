@@ -68,6 +68,7 @@ export class App extends Component {
     users: JSON.parse(localStorage.getItem("users")) || [],
     activeUser: null, //! 🗣 активний (авторизований) користувач
     activeUserId: null, //! #️⃣🗣 індекс Активного (авторизованого) користувача
+    modelScale: 'all'
   }
 
   //! 2.localStorage - Створення запису в localStorage під час першого запуску якщо його немає
@@ -82,11 +83,11 @@ export class App extends Component {
     //   localStorage.setItem("users", JSON.stringify([]));
     // }
 
-     let users = JSON.parse(localStorage.getItem("users"))
+    let users = JSON.parse(localStorage.getItem("users"))
 
     let activeUser = null;
 
-     if (!users) {
+    if (!users) {
       users = []
       localStorage.setItem("users", JSON.stringify([]));
     } else if (users.length > 0) {
@@ -101,9 +102,9 @@ export class App extends Component {
 
     console.log("activeUser: ", activeUser)
 
-    const activeUserId = users.findIndex(user => user.isActive === true) === -1 
-    ? null
-    : users.findIndex(user => user.isActive === true)
+    const activeUserId = users.findIndex(user => user.isActive === true) === -1
+      ? null
+      : users.findIndex(user => user.isActive === true)
 
     console.log("activeUserId: ", activeUserId)
 
@@ -639,8 +640,27 @@ export class App extends Component {
     this.setState(prevState => ({
       users: [...prevState.users, user],
 
-      modalType: 'Login'
+      modalType: 'Login',
+
+       //! Логіка скидання всіх форм та інпутів при зміни стану користувача
+
+      bgColor: 'black',
+      aircraftTitle: "Магазин моделей літальних апаратів",
+      aircraftArray: aircrafts,
+      activeButton: "allButton",
+      isCartButton: false,
+      searchInputValue: "", //! значення пошукового інпуту
+      radioButtonValue: "brief", //! значення параметра для пошуку/фільтрації радіо-кнопки
+      inputSearchPlaceholder: "Введіть назву ЛА", //! значення placeholder для inputSearch
+      modelsSelectedScale: aircrafts,
     }))
+
+     //! прокрутити сторінку вгору
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
   }
 
   accountLogin = (user) => {
@@ -669,6 +689,7 @@ export class App extends Component {
     localStorage.setItem(
       "selectedModelsId",
       JSON.stringify(selectedModelsId)
+
     )
 
     console.log("users after: ", users)
@@ -685,7 +706,28 @@ export class App extends Component {
       activeUserId,
       indicesSelectedModels: selectedModelsId,
       selectedModels: (JSON.parse(localStorage.getItem("selectedModelsId")) || []).flatMap((item) => aircrafts.filter((el) => item === el.id)),
+
+      //! Логіка скидання всіх форм та інпутів при зміни стану користувача
+
+      bgColor: 'black',
+      aircraftTitle: "Магазин моделей літальних апаратів",
+      aircraftArray: aircrafts,
+      activeButton: "allButton",
+      isCartButton: false,
+      searchInputValue: "", //! значення пошукового інпуту
+      radioButtonValue: "brief", //! значення параметра для пошуку/фільтрації радіо-кнопки
+      inputSearchPlaceholder: "Введіть назву ЛА", //! значення placeholder для inputSearch
+      modelsSelectedScale: aircrafts,
     }))
+
+
+    //! прокрутити сторінку вгору
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+
   }
 
   signOut = () => {
@@ -710,7 +752,26 @@ export class App extends Component {
       selectedModels: (JSON.parse(localStorage.getItem("selectedModelsId")) || []).flatMap((item) => aircrafts.filter((el) => item === el.id)),
       indicesSelectedModels: JSON.parse(localStorage.getItem("selectedModelsId")) || [], //! масив індексів обраних моделей
       // selectedModelsArrAfterFiltration: (JSON.parse(localStorage.getItem("selectedModelsId")) || []).flatMap((item) => aircrafts.filter((el) => item === el.id)), //! дубльоване значення selectedModels після фільтрації
+
+       //! Логіка скидання всіх форм та інпутів при зміни стану користувача
+
+      bgColor: 'black',
+      aircraftTitle: "Магазин моделей літальних апаратів",
+      aircraftArray: aircrafts,
+      activeButton: "allButton",
+      isCartButton: false,
+      searchInputValue: "", //! значення пошукового інпуту
+      radioButtonValue: "brief", //! значення параметра для пошуку/фільтрації радіо-кнопки
+      inputSearchPlaceholder: "Введіть назву ЛА", //! значення placeholder для inputSearch
+      modelsSelectedScale: aircrafts,
     })
+
+     //! прокрутити сторінку вгору
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
   }
 
   render() {
@@ -734,7 +795,8 @@ export class App extends Component {
       modalType,
       users,
       activeUser,
-      activeUserId
+      activeUserId,
+      modelScale
     } = this.state;
 
     //! Формуємо(оновлюємо) масив обраних моделей [selectedModels]
@@ -831,6 +893,7 @@ export class App extends Component {
 
         <ScaleSelection
           onGetModelsSelectedScale={this.getModelsSelectedScale}
+          modelScale={modelScale} //! початковий масштаб моделі в ScaleSelection
         />
         <Filter
           onAll={this.allFiltration}

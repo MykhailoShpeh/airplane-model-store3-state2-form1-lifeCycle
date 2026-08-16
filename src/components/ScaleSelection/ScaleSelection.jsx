@@ -5,10 +5,11 @@ import aircrafts from '@/json/aircrafts.json';
 import css from './ScaleSelection.module.css'
 
 export class ScaleSelection extends Component {
-    state = {
-        modelScale: "all",
-        // modelsSelectedScale: []
-    }
+   state = {
+    // modelScale: "all", //! масштаб моделі
+    modelScale: this.props.modelScale, //! масштаб моделі
+  };
+
 
     handleChangeModelScale = event => {
         //! Деструктуризуємо:
