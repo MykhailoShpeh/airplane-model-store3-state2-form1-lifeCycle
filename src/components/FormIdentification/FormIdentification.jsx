@@ -114,6 +114,7 @@ export class FormIdentification extends Component {
                             name="userEmail"
                             value={userEmail}
                             onChange={this.handleChange}
+                            required
                         />
                     </label>
                     <label className={css.labelFormIdentification}>
@@ -124,12 +125,14 @@ export class FormIdentification extends Component {
                             name="userPassword"
                             value={userPassword}
                             onChange={this.handleChange}
+                            required
                         />
                     </label>
                     <div className={css.buttonBoxFormIdentification}>
                         <button
                             className={`${css.buttonFormIdentification} ${css.loginButton}`}
                             type="submit"
+                            disabled={!userEmail || !userPassword}
                         >
                             Login
                         </button>

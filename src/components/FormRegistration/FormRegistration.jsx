@@ -112,6 +112,7 @@ export class FormRegistration extends Component {
                             name="userName"
                             value={userName}
                             onChange={this.handleChange}
+                            required
                         />
                     </label>
 
@@ -123,6 +124,7 @@ export class FormRegistration extends Component {
                             name="userEmail"
                             value={userEmail}
                             onChange={this.handleChange}
+                            required
                         />
                     </label>
 
@@ -135,6 +137,7 @@ export class FormRegistration extends Component {
                             name="userPassword"
                             value={userPassword}
                             onChange={this.handleChange}
+                            required
                         />
                     </label>
 
@@ -149,6 +152,7 @@ export class FormRegistration extends Component {
                                 value="disciple"
                                 checked={userExperience === "disciple"}
                                 onChange={this.handleChange}
+                                
                             />
                         </label>
 
@@ -160,6 +164,7 @@ export class FormRegistration extends Component {
                                 value="master"
                                 checked={userExperience === "master"}
                                 onChange={this.handleChange}
+                                
                             />
                         </label>
 
