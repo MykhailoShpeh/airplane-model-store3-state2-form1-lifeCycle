@@ -77,20 +77,33 @@ export class App extends Component {
     //   localStorage.setItem("selectedModelsId", JSON.stringify([]));
     // }
 
-    const savedUSers = localStorage.getItem("users");
-    if (!savedUSers) {
+    // const savedUSers = localStorage.getItem("users");
+    // if (!savedUSers) {
+    //   localStorage.setItem("users", JSON.stringify([]));
+    // }
+
+     let users = JSON.parse(localStorage.getItem("users"))
+
+    let activeUser = null;
+
+     if (!users) {
+      users = []
       localStorage.setItem("users", JSON.stringify([]));
+    } else if (users.length > 0) {
+      activeUser = users.find(user => user.isActive === true) === undefined
+        ? null
+        : JSON.parse(localStorage.getItem("users")).find(user => user.isActive === true);
     }
 
     //todo якщо users відсутні, то localstorage поверне null,
     //todo якщо є, (масив users не пустий), то localstorage поверне users
     //todo якщо є, (масив users пустий), то localstorage поверне пустий масив []
-    
-    const activeUser = JSON.parse(localStorage.getItem("users")).find(user => user.isActive === true) 
 
     console.log("activeUser: ", activeUser)
 
-    const activeUserId = JSON.parse(localStorage.getItem("users")).findIndex(user => user.isActive === true)
+    const activeUserId = users.findIndex(user => user.isActive === true) === -1 
+    ? null
+    : users.findIndex(user => user.isActive === true)
 
     console.log("activeUserId: ", activeUserId)
 
@@ -138,8 +151,8 @@ export class App extends Component {
 
       //! перенесено в метод signOut
       this.setState({
-      //   selectedModels: (JSON.parse(localStorage.getItem("selectedModelsId")) || []).flatMap((item) => aircrafts.filter((el) => item === el.id)),
-      //   indicesSelectedModels: JSON.parse(localStorage.getItem("selectedModelsId")) || [], //! масив індексів обраних моделей
+        //   selectedModels: (JSON.parse(localStorage.getItem("selectedModelsId")) || []).flatMap((item) => aircrafts.filter((el) => item === el.id)),
+        //   indicesSelectedModels: JSON.parse(localStorage.getItem("selectedModelsId")) || [], //! масив індексів обраних моделей
         selectedModelsArrAfterFiltration: (JSON.parse(localStorage.getItem("selectedModelsId")) || []).flatMap((item) => aircrafts.filter((el) => item === el.id)), //! дубльоване значення selectedModels після фільтрації
       })
     }
